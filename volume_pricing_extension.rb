@@ -14,7 +14,7 @@ class VolumePricingExtension < Spree::Extension
   
   def activate
     Variant.class_eval do 
-      has_many :volume_prices
+      has_many :volume_prices, :order => :position
     end
     
     Order.class_eval do
