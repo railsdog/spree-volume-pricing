@@ -1,0 +1,27 @@
+<%= render :partial => 'shared/product_sub_menu' %>
+<h1><%= t("Editing Product") %></h1>
+<%= render :partial => 'shared/product_tabs', :locals => {:current => "Variants"} %>
+<%= error_messages_for :variant %>
+
+<% form_for(:variant, :url => object_url, :html => { :method => :put }) do |f| %>
+  <%= render :partial => "form", :locals => { :f => f } %>
+  <h3><%= t("Volume Prices") %></h3>
+  <table class="admin-report" width="545">
+    <thead>
+      <tr>
+        <th><%=t("SKU")%></th>
+        <th width="150"><%=t("Product")%></th>
+        <th><%=t("Variant")%></th>
+        <th><%=t("Range")%></th>
+        <th><%=t("Amount")%></th>
+        <th><%=t("Actiion")%></th>
+      </tr>
+    </thead>
+    <tbody id="volume_prices">
+  		<%= f.render_associated_form(@variant.volume_prices) %>
+  	</tbody>
+  </table>
+  <%= f.add_associated_link(t("Add Volume Price"), @variant.volume_prices.build) %>
+  <br/><br/>  
+  <%= render :partial => 'shared/edit_resource_links' %>
+<% end %>

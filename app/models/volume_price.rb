@@ -2,6 +2,7 @@ class VolumePrice < ActiveRecord::Base
   belongs_to :variant
   acts_as_list :scope => :variant
   validates_presence_of :variant
+  validates_presence_of :amount
   
   OPEN_ENDED = /\([0-9]+\+\)/
   

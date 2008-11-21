@@ -6,15 +6,18 @@ class VolumePricingExtension < Spree::Extension
   description "Describe your extension here"
   url "http://yourwebsite.com/volume_pricing"
 
-  # define_routes do |map|
-  #   map.namespace :admin do |admin|
-  #     admin.resources :whatever
-  #   end  
-  # end
+  define_routes do |map|
+    map.namespace :admin do |admin|
+      admin.resources :volume_prices, :collection => {:variants => :get}
+    end  
+    map.namespace :admin do |admin|
+      admin.resources :variants, :has_many => :volume_prices, :dependent => :destroy, :attributes => true
+    end  
+  end
   
   def activate
     Variant.class_eval do 
-      has_many :volume_prices, :order => :position
+      has_many :volume_prices, :attributes => true, :order => :position, :dependent => :destroy
     end
     
     Order.class_eval do
@@ -54,6 +57,11 @@ class VolumePricingExtension < Spree::Extension
      end
     end
     
+    Admin::VariantsController.class_eval do
+      update.before do
+        params[:variant][:volume_price_attributes] ||= {}
+      end      
+    end
   end
   
 end
