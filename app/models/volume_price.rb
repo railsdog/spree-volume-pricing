@@ -13,7 +13,7 @@ class VolumePrice < ActiveRecord::Base
   
   def include?(quantity)
     if open_ended?
-      bound = /\d+/.match("(50+)")[0].to_i
+      bound = /\d+/.match(range)[0].to_i
       return quantity >= bound
     else
       range.to_range === quantity
