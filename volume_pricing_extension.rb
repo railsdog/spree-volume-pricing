@@ -18,6 +18,15 @@ class VolumePricingExtension < Spree::Extension
   def activate
     Variant.class_eval do 
       has_many :volume_prices, :attributes => true, :order => :position, :dependent => :destroy
+      
+      # calculates the price based on quantity
+      def volume_price(quantity)
+        volume_prices.each do |price|
+          return price.amount if price.include?(quantity)
+        end
+        self.price
+      end
+      
     end
     
     Order.class_eval do
@@ -25,10 +34,7 @@ class VolumePricingExtension < Spree::Extension
       def add_variant(variant, quantity=1)
         current_item = line_items.in_order(variant)
         
-        price = variant.price
-        variant.volume_prices.each do |volume_price|
-          price = volume_price.amount and break if volume_price.include?(quantity)
-        end
+        price = variant.volume_price(quantity)
         
         if current_item
           current_item.increment_quantity unless quantity > 1
@@ -38,6 +44,17 @@ class VolumePricingExtension < Spree::Extension
         else
           current_item = LineItem.new(:quantity => quantity, :variant => variant, :price => price)
           self.line_items << current_item
+        end
+      end
+    end
+    
+    LineItem.class_eval do
+      before_update :check_volume_pricing
+      
+      private
+      def check_volume_pricing
+        if changed? && changes.keys.include?("quantity")
+          self.price = variant.volume_price(quantity)
         end
       end
     end
