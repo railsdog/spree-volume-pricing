@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe VolumePrice do
   before(:each) do
-    @volume_price = VolumePrice.new(:variant => Variant.new)
+    @volume_price = VolumePrice.new(:variant => Variant.new, :amount => 10)
   end
 
   it "should not interepret a Ruby range as being opend ended" do
