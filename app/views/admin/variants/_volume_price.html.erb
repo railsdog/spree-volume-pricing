@@ -3,11 +3,15 @@
   <td valign="top"><%=@variant.product.name %></td>
   <td valign="top"><%=variant_options @variant %></td>
   <td valign="top">
-    <%= f.error_message_on(:range) %>
+    <%#= f.error_message_on(:display) %>
+    <%=f.text_field(:display, :size => 10)%>
+  </td>
+  <td valign="top">
+    <%#= f.error_message_on(:range) %>
     <%=f.text_field(:range, :size => 10)%>
   </td>
   <td valign="top">
-    <%= f.error_message_on(:amount) %>
+    <%#= f.error_message_on(:amount) %>
     <%=f.text_field(:amount, :size => 10)%>
   </td>
   <td valign="top"><%= f.remove_link t("Delete") %></td>
