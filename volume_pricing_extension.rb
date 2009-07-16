@@ -29,7 +29,7 @@ class VolumePricingExtension < Spree::Extension
       
     end
     
-    Order.class_eval do
+    Order.instance_eval do
       # override the add_variant functionality so that we can adjust the price based on possible volume adjustment
       def add_variant(variant, quantity=1)
         current_item = line_items.in_order(variant)
