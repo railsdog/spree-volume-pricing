@@ -18,6 +18,7 @@ class VolumePricingExtension < Spree::Extension
   def activate
     Variant.class_eval do 
       has_many :volume_prices, :attributes => true, :order => :position, :dependent => :destroy
+      accepts_nested_attributes_for :volume_prices
       
       # calculates the price based on quantity
       def volume_price(quantity)
@@ -29,25 +30,36 @@ class VolumePricingExtension < Spree::Extension
       
     end
     
-    Order.instance_eval do
+    Order.class_eval do
       # override the add_variant functionality so that we can adjust the price based on possible volume adjustment
       def add_variant(variant, quantity=1)
-        current_item = line_items.in_order(variant)
-        
-        price = variant.volume_price(quantity)
-        
+        current_item = contains?(variant)
+        price = variant.volume_price(quantity) # Added
         if current_item
           current_item.increment_quantity unless quantity > 1
           current_item.quantity = (current_item.quantity + quantity) if quantity > 1
-          current_item.price = price
+          current_item.price = price # Added
           current_item.save
         else
-          current_item = LineItem.new(:quantity => quantity, :variant => variant, :price => price)
+          current_item = LineItem.new(:quantity => quantity, :variant => variant, :price => price) # Changed
           self.line_items << current_item
+        end
+
+        # populate line_items attributes for additional_fields entries
+        # that have populate => [:line_item]
+        Variant.additional_fields.select{|f| !f[:populate].nil? && f[:populate].include?(:line_item) }.each do |field| 
+          value = ""
+
+          if field[:only].nil? || field[:only].include?(:variant)
+            value = variant.send(field[:name].gsub(" ", "_").downcase)
+          elsif field[:only].include?(:product)
+            value = variant.product.send(field[:name].gsub(" ", "_").downcase)
+          end
+          current_item.update_attribute(field[:name].gsub(" ", "_").downcase, value)
         end
       end
     end
-    
+
     LineItem.class_eval do
       before_update :check_volume_pricing
       

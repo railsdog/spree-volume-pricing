@@ -1,28 +1,29 @@
-<%= render :partial => 'shared/product_sub_menu' %>
-<h1><%= t("Editing Product") %></h1>
-<%= render :partial => 'shared/product_tabs', :locals => {:current => "Variants"} %>
+<%= render :partial => 'admin/shared/product_sub_menu' %>
+
+<%= render :partial => 'admin/shared/product_tabs', :locals => {:current => "Variants"} %>
+
 <%= error_messages_for :variant %>
 
 <% form_for(:variant, :url => object_url, :html => { :method => :put }) do |f| %>
   <%= render :partial => "form", :locals => { :f => f } %>
-  <h3><%= t("Volume Prices") %></h3>
-  <table class="admin-report" width="545">
+  
+  <h3><%= t("volume_prices") %></h3>
+  <table class="index">
     <thead>
       <tr>
-        <th><%=t("SKU")%></th>
-        <th width="150"><%=t("Product")%></th>
-        <th><%=t("Variant")%></th>
-        <th><%=t("Display")%></th>
-        <th><%=t("Range")%></th>
-        <th><%=t("Amount")%></th>
-        <th><%=t("Actiion")%></th>
+        <th><%= t("display") %></th>
+        <th><%= t("range") %></th>
+        <th><%= t("amount") %></th>
+        <th><%= t("position") %></th>
+        <th><%= t("action") %></th>
       </tr>
     </thead>
     <tbody id="volume_prices">
   		<%= f.render_associated_form(@variant.volume_prices) %>
   	</tbody>
   </table>
-  <%= f.add_associated_link(t("Add Volume Price"), @variant.volume_prices.build) %>
-  <br/><br/>  
-  <%= render :partial => 'shared/edit_resource_links' %>
+  <%= f.add_associated_link(icon('add') + ' ' + t("add_volume_price"), @variant.volume_prices.build) %>
+  <br/><br/>
+  
+  <%= render :partial => 'admin/shared/edit_resource_links' %>
 <% end %>
