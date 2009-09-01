@@ -41,8 +41,10 @@ class VolumePricingExtension < Spree::Extension
           current_item.price = price # Added
           current_item.save
         else
-          current_item = LineItem.new(:quantity => quantity, :variant => variant, :price => price) # Changed
-          self.line_items << current_item
+          current_item = line_items.create(:quantity => quantity)
+          current_item.variant = variant
+          current_item.price = price
+          current_item.save
         end
 
         # populate line_items attributes for additional_fields entries
