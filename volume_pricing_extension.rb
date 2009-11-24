@@ -83,6 +83,21 @@ class VolumePricingExtension < Spree::Extension
       update.before do
         params[:variant][:volume_price_attributes] ||= {}
       end      
+      
+      update.response do |wants| 
+        wants.html do 
+          redirect_to object.is_master ? volume_prices_admin_product_variant_url(object.product, object) : collection_url
+        end
+      end
+
+      def object 
+      	@object ||=  Variant.find(params[:id]) 
+      end
+      
+      def volume_prices
+        @variant = object
+        @product = @variant.product
+      end
     end
   end
   
