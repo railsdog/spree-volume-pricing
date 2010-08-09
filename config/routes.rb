@@ -1,5 +1,13 @@
-map.namespace :admin do |admin|
-   admin.resources :products do |product|
-     product.resources :variants, :member => {:volume_prices => :get}
-   end
+Rails.application.routes.draw do
+
+  namespace :admin do 
+
+    resources :products do 
+       resources :variants do
+        get :volume_prices, :on => :member
+      end
+    end
+
+  end
+
 end
