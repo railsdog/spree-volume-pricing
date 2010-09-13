@@ -1,17 +1,21 @@
-version = '3.0.1'
-
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_volume_pricing'
-  s.version     = version
+  s.version     = '3.0.2'
   s.summary     = 'Allow prices to be configured in quantity ranges for each variant'
+  s.description = 'Allow prices to be configured in quantity ranges for each variant'
   s.required_ruby_version = '>= 1.8.7'
 
-  s.files        = Dir['README.markdown', 'lib/**/*', 'app/**/*', 'config/*']
+  s.author            = 'Sean Schofield'
+  s.email             = 'sean@railsdog.com'
+  s.homepage          = 'http://spreecommerce.com'
+  s.rubyforge_project = 'spree_volume_pricing'
+
+  s.files        = Dir['README.md', 'lib/**/*', 'app/**/*', 'config/*', 'db/*']
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.has_rdoc = true
+  s.has_rdoc = false
 
-  s.add_dependency('spree_core',  '0.30.0.beta1')
+  s.add_dependency('spree_core',  '>= 0.30.0.beta1')
 end
