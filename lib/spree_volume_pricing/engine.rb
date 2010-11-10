@@ -80,7 +80,7 @@ module SpreeVolumePricing
       
       Admin::VariantsController.class_eval do
         update.before do
-          params[:variant][:volume_price_attributes] ||= {}
+          params[:variant][:volume_prices_attributes] ||= {}
         end      
         
         update.response do |wants| 
