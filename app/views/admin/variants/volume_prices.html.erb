@@ -2,10 +2,9 @@
 
 <%= render :partial => 'admin/shared/product_tabs', :locals => {:current => "Volume Pricing"} %>
 
-<%= error_messages_for :variant %>
+<%= render "shared/error_messages", :target => @variant %>
 
-<% form_for(:variant, :url => admin_product_variant_url(@product, @variant), :html => { :method => :put }) do |f| %>
-
+<%= form_for(@variant, :url => admin_product_variant_url(@product, @variant), :html => { :method => :put }) do |f| %>
   <h3><%= t("volume_prices") %></h3>
   <table class="index">
     <thead>
@@ -18,10 +17,12 @@
       </tr>
     </thead>
     <tbody id="volume_prices">
-      <%= f.render_associated_form(@variant.volume_prices) %>
+      <%= f.fields_for :volume_prices do |vp_form| %>
+        <%= render 'volume_price_fields', :f => vp_form %>
+      <% end %>
     </tbody>
   </table>
-  <%= f.add_associated_link(icon('add') + ' ' + t("add_volume_price"), @variant.volume_prices.build) %>
+  <%= link_to_add_fields icon('add') + ' ' + t("add_volume_price"), "tbody#volume_prices", f, :volume_prices %>
   <br/><br/>
 
   <%= render :partial => 'admin/shared/edit_resource_links' %>
