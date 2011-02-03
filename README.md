@@ -8,7 +8,7 @@ Volume Pricing is an extension to Spree (a complete open source commerce solutio
 Each VolumePrice contains the following values:
 
 1. **Variant:** Each VolumePrice is associated with a _Variant_, which is used to link products to particular prices.
-2. **Display:** The human readable reprentation of the quantity range (Ex. 10-100).  (Optional)
+2. **Name:** The human readable reprentation of the quantity range (Ex. 10-100).  (Optional)
 3. **Range:** The quantity range for which the price is valid (See Below for Examples of Valid Ranges.)
 4. **Amount:** The price of the product if the line item quantity falls within the specified range.
 5. **Position:** Integer value for `acts_as_list` (Helps keep the volume prices in a defined order.)
@@ -38,7 +38,7 @@ Examples
 ========
 Consider the following examples of volume prices:
 
-       Variant                Display            Range        Amount         Position
+       Variant                Name               Range        Amount         Position
        -------------------------------------------------------------------------------
        Rails T-Shirt          1-5                (1..5)       19.99          1
        Rails T-Shirt          6-9                (6...10)     18.99          2
