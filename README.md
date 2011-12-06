@@ -20,6 +20,11 @@ The extension contains a rails generator that will add the necessary migrations 
 
       rails generate spree_volume_pricing:install
 
+Easily add volume pricing display to your product page:
+
+      <%= render :partial => 'spree/products/volume_pricing', :locals => { :product => @product } %>
+
+
 Ranges
 ======
 

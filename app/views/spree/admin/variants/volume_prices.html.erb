@@ -1,8 +1,6 @@
-<%= render :partial => 'admin/shared/product_sub_menu' %>
-
-<%= render :partial => 'admin/shared/product_tabs', :locals => {:current => "Volume Pricing"} %>
-
-<%= render "shared/error_messages", :target => @variant %>
+<%= render 'spree/admin/shared/product_sub_menu' %>
+<%= render :partial => 'spree/admin/shared/product_tabs', :locals => {:current => "Volume Pricing"} %>
+<%= render "spree/shared/error_messages", :target => @variant %>
 
 <%= form_for(@variant, :url => admin_product_variant_url(@product, @variant), :html => { :method => :put }) do |f| %>
   <h3><%= t("volume_prices") %></h3>
@@ -25,5 +23,5 @@
   <%= link_to_add_fields icon('add') + ' ' + t("add_volume_price"), "tbody#volume_prices", f, :volume_prices %>
   <br/><br/>
 
-  <%= render :partial => 'admin/shared/edit_resource_links' %>
+  <%= render 'spree/admin/shared/edit_resource_links' %>
 <% end %>

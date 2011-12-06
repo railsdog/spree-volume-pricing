@@ -1,4 +1,4 @@
-LineItem.class_eval do
+Spree::LineItem.class_eval do
   before_update :check_volume_pricing
   
   private

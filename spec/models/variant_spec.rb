@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Variant do
+describe Spree::Variant do
   it { should have_many(:volume_prices) }
 
   describe '#volume_price' do

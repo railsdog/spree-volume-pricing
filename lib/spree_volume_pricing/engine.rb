@@ -1,5 +1,3 @@
-require "spree_volume_pricing"
-
 module SpreeVolumePricing
   class Engine < Rails::Engine
     engine_name 'spree_volume_pricing'

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LineItem do
+describe Spree::LineItem do
   before :each do
     @order = Factory(:order)
     @variant = Factory(:variant, :price => 10)

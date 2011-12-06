@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Order do
+describe Spree::Order do
   before(:each) do
     @order = Factory(:order)
     @variant = Factory(:variant, :price => 10)

@@ -1,0 +1,11 @@
+<% if product.master.volume_prices.length > 0 %>
+<div id="bulk-discount">
+  <h6><%= t('bulk_discount') %></h6>
+  <dl>
+    <%product.master.volume_prices.each do |v| %>
+    <dt><%=v.range.to_range%></dt>
+    <dd><%=number_to_currency v.amount%></dd>
+    <%end%>
+  </dl>
+</div>
+<%end%>

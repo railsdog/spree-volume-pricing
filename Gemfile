@@ -12,3 +12,5 @@ end
 
 gemspec
 
+gem 'spree', :git => 'git://github.com/spree/spree'
+
