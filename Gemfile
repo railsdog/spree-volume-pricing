@@ -4,9 +4,9 @@ source 'http://rubygems.org'
 gem 'selenium-webdriver', '0.2.1'
 
 group :test do
-  gem 'rspec-rails', '= 2.6.1'
-  gem 'factory_girl', '= 1.3.3'
-  gem 'factory_girl_rails', '= 1.0.1'
+  gem 'rspec-rails'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'rcov'
   gem 'shoulda'
   gem 'faker'
@@ -19,11 +19,11 @@ end
 
 group :cucumber do
   gem 'cucumber-rails'
-  gem 'database_cleaner', '= 0.6.7'
-  gem 'nokogiri', '1.4.4'
-  gem 'capybara', '= 1.0.0'
-  gem 'factory_girl', '= 1.3.3'
-  gem 'factory_girl_rails', '= 1.0.1'
+  gem 'database_cleaner'
+  gem 'nokogiri'
+  gem 'capybara'
+  gem 'factory_girl'
+  gem 'factory_girl_rails'
   gem 'faker'
   gem 'launchy'
 
