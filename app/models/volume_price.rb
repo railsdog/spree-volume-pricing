@@ -1,6 +1,8 @@
 class VolumePrice < ActiveRecord::Base
   belongs_to :variant
   acts_as_list :scope => :variant
+
+  validates :range, :format => {:with => /\([0-9]+(?:\.{2,3}[0-9]+|\+\))/}
   validates_presence_of :variant
   validates_presence_of :amount
   
