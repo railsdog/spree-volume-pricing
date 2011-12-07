@@ -2,7 +2,7 @@ module SpreeVolumePricing
   module Generators
     class InstallGenerator < Rails::Generators::Base
       def add_migrations
-        run 'rake railties:install:migrations FROM=spree_volume_pricing_engine'
+        run 'rake railties:install:migrations FROM=spree_volume_pricing'
       end
 
       def run_migrations
