@@ -79,4 +79,12 @@ Additional Notes
 * The volume price is applied based on the total quantity ordered for a particular variant.  It does not apply different prices for the portion of the quantity that falls within a particular range.  Only the one price is used (although this would be an interesting configurable option if someone wanted to write a patch.)
 
 
+Development
+===========
+
+This extension uses the testing support from spree core. Once you have installed the bundle you will be able to create the test app and run the rake tests. The factories from spree/core are available within the tests.
+
+      bundle install
+      rake test_app
+      rake
 
