@@ -13,6 +13,13 @@ Each VolumePrice contains the following values:
 4. **Amount:** The price of the product if the line item quantity falls within the specified range.
 5. **Position:** Integer value for `acts_as_list` (Helps keep the volume prices in a defined order.)
 
+Install
+=======
+
+The extension contains a rails generator that will add the necessary migrations and give you the option to run the migrations, or run them later, perhaps after installing other extensions. The version of the extension used should match the version of Spree being used in accordance with that listed in the Versionfile. Once you have bundled the extension, run the install generator and its ready to use.
+
+      rails generate spree_volume_pricing:install
+
 Ranges
 ======
 
