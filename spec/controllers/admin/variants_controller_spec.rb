@@ -7,13 +7,7 @@ describe Admin::VariantsController do
     user.stub :has_role? => true
   end
 
-  context "#update" do
-    it "should fire the before filter" do
-      variant = Factory(:variant)
-
-      controller.should_receive(:before_update)
-
-      put :update, {:product_id=>variant.product.permalink, :id => variant.id,:variant => variant.attributes}
-    end
+  it 'needs request specs' do
+    pending
   end
 end
