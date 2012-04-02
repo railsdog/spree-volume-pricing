@@ -28,13 +28,13 @@ describe Spree::VolumePrice do
       @volume_price.range = "(1...2)"
       @volume_price.should be_valid
     end
-    it "should not consider a range of 1..2 to be valid" do
+    it "should consider a range of 1..2 to be valid" do
       @volume_price.range = "1..2"
-      @volume_price.should_not be_valid
+      @volume_price.should be_valid
     end
-    it "should not consider a range of 1...2 to be valid" do
+    it "should consider a range of 1...2 to be valid" do
       @volume_price.range = "1...2"
-      @volume_price.should_not be_valid
+      @volume_price.should be_valid
     end
     it "should consider a range of (10+) to be valid" do
       @volume_price.range = "(10+)"
@@ -42,7 +42,7 @@ describe Spree::VolumePrice do
     end
     it "should not consider a range of 10+ to be valid" do
       @volume_price.range = "10+"
-      @volume_price.should_not be_valid
+      @volume_price.should be_valid
     end
     it "should not consider a range of 1-2 to valid" do
       @volume_price.range = "1-2"
