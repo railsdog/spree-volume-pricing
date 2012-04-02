@@ -1,4 +1,6 @@
 require 'rubygems'
+require "bundler/setup"
+
 require 'rake'
 require 'rake/testtask'
 require 'rake/packagetask'
@@ -9,14 +11,13 @@ require 'spree_core/testing_support/common_rake'
 RSpec::Core::RakeTask.new
 
 desc "Default Task"
-task :default => [:spec ]
+task :default => :spec
 
 spec = eval(File.read('spree_volume_pricing.gemspec'))
 
 Gem::PackageTask.new(spec) do |p|
   p.gem_spec = spec
 end
-
 
 desc "Release to gemcutter"
 task :release => :package do
