@@ -1,8 +1,4 @@
 Spree::Admin::VariantsController.class_eval do
-  respond_override :update => {:html => {
-    :success => lambda { redirect_to(@variant.is_master ? volume_prices_admin_product_variant_url(@variant.product, @variant) : collection_url) },
-    :failure => lambda { redirect_to(@variant.is_master ? volume_prices_admin_product_variant_url(@variant.product, @variant) : collection_url)  } } }
-
   def load_resource_instance
     parent
 
