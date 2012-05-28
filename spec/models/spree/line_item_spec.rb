@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe Spree::LineItem do
   before :each do
-    @order = Factory.create(:order)
-    @variant = Factory.create(:variant, :price => 10)
+    @order = FactoryGirl.create(:order)
+    @variant = FactoryGirl.create(:variant, :price => 10)
     @variant.volume_prices.create! :amount => 9, :range => '(2+)'
     @order.add_variant(@variant, 1)
     @line_item = @order.line_items.first

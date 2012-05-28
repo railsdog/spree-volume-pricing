@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Spree::Order do
   before(:each) do
-    @order = Factory.create(:order)
-    @variant = Factory.create(:variant, :price => 10)
+    @order = FactoryGirl.create(:order)
+    @variant = FactoryGirl.create(:variant, :price => 10)
 
-    @variant_with_prices = Factory.create(:variant, :price => 10)
-    @variant_with_prices.volume_prices << Factory.create(:volume_price, :range => '(1..5)', :amount => 9)
-    @variant_with_prices.volume_prices << Factory.create(:volume_price, :range => '(5..9)', :amount => 8)
+    @variant_with_prices = FactoryGirl.create(:variant, :price => 10)
+    @variant_with_prices.volume_prices << FactoryGirl.create(:volume_price, :range => '(1..5)', :amount => 9)
+    @variant_with_prices.volume_prices << FactoryGirl.create(:volume_price, :range => '(5..9)', :amount => 8)
   end
 
   describe "add_variant" do
@@ -17,7 +17,7 @@ describe Spree::Order do
     end
 
     it "should use the volume price if quantity falls within a quantity range of a volume price" do
-      @variant.volume_prices << Factory.create(:volume_price, :range => '(5..10)', :amount => 9)
+      @variant.volume_prices << FactoryGirl.create(:volume_price, :range => '(5..10)', :amount => 9)
       @order.add_variant(@variant_with_prices, 7)
       @order.line_items.first.price.should == 8
     end
