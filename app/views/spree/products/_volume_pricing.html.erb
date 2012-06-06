@@ -7,7 +7,7 @@
 	<%= content_tag(:tr) do %>
 	<%= content_tag :td, (v.open_ended? ? v.range : "#{v.range.to_range.begin}–#{v.range.to_range.end}") %>
 	<%= content_tag :td, number_to_currency(v.amount)%>
-	<%= content_tag(:td, "%i%" % (v.amount / product.master.price * 100)) if display_percent %>
+	<%= content_tag(:td, "%i%" % ((1.0 - v.amount / product.master.price) * 100)) if display_percent %>
 	<% end %>
 	<% end %>  	
   </table>
