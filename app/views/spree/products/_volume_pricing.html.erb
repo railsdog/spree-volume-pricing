@@ -1,5 +1,5 @@
 <% display_percent ||= false %>
-<% unless product.master.volume_prices.blank? %>
+<% if product.price > 0 and product.master.volume_prices.present? %>
 <div id="bulk-discount">
   <h6><%= t(:bulk_discount) %></h6>
   <table>
