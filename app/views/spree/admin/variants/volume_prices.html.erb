@@ -20,7 +20,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to_add_fields icon('add') + ' ' + t("add_volume_price"), "tbody#volume_prices", f, :volume_prices %>
+  <%= link_to_add_fields t("add_volume_price"), "tbody#volume_prices" %>
   <br/><br/>
 
   <%= render 'spree/admin/shared/edit_resource_links' %>
