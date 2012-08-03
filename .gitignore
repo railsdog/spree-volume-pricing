@@ -3,4 +3,4 @@
 pkg
 Gemfile.lock
 spec/dummy
-
+Guardfile
