@@ -10,14 +10,17 @@ Spree::LineItem.class_eval do
     new_price = old_copy_price.bind(self).()
 
     if variant and changed? and changes.keys.include? 'quantity'
-      vprice = self.variant.volume_price self.quantity
-      self.price = vprice if (!new_price.nil? and vprice < new_price) or vprice < self.price
-    else
-      if new_price.nil?
-        self.price = self.variant.price
-      else
-        self.price = new_price
+      vprice = self.variant.volume_price(self.quantity)
+
+      if (!new_price.nil? and vprice <= new_price) or vprice <= self.price
+        return self.price = vprice
       end
+    end
+
+    if new_price.nil?
+      self.price = self.variant.price
+    else
+      self.price = new_price
     end
   end
 end
