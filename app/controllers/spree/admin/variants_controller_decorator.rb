@@ -12,6 +12,7 @@ Spree::Admin::VariantsController.class_eval do
 
   def volume_prices
     @product = @variant.product
+    @variant.volume_prices.build
   end
 
   def location_after_save
