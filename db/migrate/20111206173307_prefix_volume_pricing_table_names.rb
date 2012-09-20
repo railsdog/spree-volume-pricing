@@ -1,4 +1,4 @@
-class PrefixTableNames < ActiveRecord::Migration
+class PrefixVolumePricingTableNames < ActiveRecord::Migration
   def change
     rename_table :volume_prices, :spree_volume_prices
   end
