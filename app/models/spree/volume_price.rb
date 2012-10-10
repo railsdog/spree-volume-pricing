@@ -1,5 +1,5 @@
 class Spree::VolumePrice < ActiveRecord::Base
-  belongs_to :variant
+  belongs_to :variant, :touch => true
   acts_as_list :scope => :variant
 
   validates :range, :format => {:with => /\(?[0-9]+(?:\.{2,3}[0-9]+|\+\)?)/, :message => "must be in one of the following formats: (a..b), (a...b), (a+)"}
