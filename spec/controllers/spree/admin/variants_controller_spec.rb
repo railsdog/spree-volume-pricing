@@ -1,18 +1,13 @@
 require 'spec_helper'
 
 describe Spree::Admin::VariantsController do
-  let(:user) { FactoryGirl.create :user }
-  before do
-    controller.stub :spree_current_user => user
-    user.stub :has_role? => true
-    controller.stub :admin_variants_url => "/"
-  end
+  stub_authorization!
 
   describe "PUT #update" do
     it "creates a volume price" do
       variant = FactoryGirl.create :variant
 
-      lambda do
+      expect do
         spree_put :update,
           :product_id => variant.product.permalink,
           :id => variant.id,
@@ -27,7 +22,7 @@ describe Spree::Admin::VariantsController do
               }
             }
           }
-      end.should change(variant.volume_prices, :count).by(1)
+      end.to change(variant.volume_prices, :count).by(1)
     end
   end
 end
