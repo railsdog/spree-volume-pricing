@@ -7,7 +7,7 @@ Spree::LineItem.class_eval do
 
   old_copy_price = instance_method(:copy_price)
   define_method(:copy_price) do
-    new_price = old_copy_price.bind(self).()
+    new_price = old_copy_price.bind(self).call
 
     if variant and changed? and changes.keys.include? 'quantity'
       vprice = self.variant.volume_price(self.quantity)
