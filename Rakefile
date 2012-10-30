@@ -8,7 +8,7 @@ require 'spree/core/testing_support/common_rake'
 
 RSpec::Core::RakeTask.new
 
-task :default => :rspec
+task :default => :spec
 
 spec = eval(File.read('spree_volume_pricing.gemspec'))
 
