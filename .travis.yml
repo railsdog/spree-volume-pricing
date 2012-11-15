@@ -3,7 +3,13 @@ before_script:
   - "bundle exec rake test_app"
 script: "bundle exec rake"
 notifications:
-  irc: "irc.freenode.org#spree"
+  irc:
+    channels:
+      - "irc.freenode.org#spree"
+    use_notice: true
+    skip_join: true
+
+  
 branches:
   only:
     - master
