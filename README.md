@@ -9,7 +9,7 @@ Each VolumePrice contains the following values:
 
 1. **Variant:** Each VolumePrice is associated with a _Variant_, which is used to link products to particular prices.
 1. **Name:** The human readable reprentation of the quantity range (Ex. 10-100).  (Optional)
-1. **Discount Type** The type of discount to apply.  Price: sets price to the amount specified. Dollar: subtracts specified amount from the Variant price.  Percent: subtracts the specific amounts percentage from the Variant price.
+1. **Discount Type** The type of discount to apply.  **Price:** sets price to the amount specified. **Dollar:** subtracts specified amount from the Variant price.  **Percent:** subtracts the specified amounts percentage from the Variant price.
 1. **Range:** The quantity range for which the price is valid (See Below for Examples of Valid Ranges.)
 1. **Amount:** The price of the product if the line item quantity falls within the specified range.
 1. **Position:** Integer value for `acts_as_list` (Helps keep the volume prices in a defined order.)
@@ -25,11 +25,10 @@ Easily add volume pricing display to your product page:
 
       <%= render :partial => 'spree/products/volume_pricing', :locals => { :product => @product } %>
 
-
 Ranges
 ======
 
-Ranges are expressed as Strings and are similar to the format of a Range object in Ruby.  The lower numeber of the range is always inclusive.  If the range is defined with '..' then it also includes the upper end of the range.  If the range is defined with '...' then the upper end of the range is not inclusive.
+Ranges are expressed as Strings and are similar to the format of a Range object in Ruby.  The lower number of the range is always inclusive.  If the range is defined with '..' then it also includes the upper end of the range.  If the range is defined with '...' then the upper end of the range is not inclusive.
 
 Ranges can also be defined as "open ended."  Open ended ranges are defined with an integer followed by a '+' character.  These ranges are inclusive of the integer and any value higher then the integer.
 
@@ -91,13 +90,11 @@ Additional Notes
 
 * The volume price is applied based on the total quantity ordered for a particular variant.  It does not apply different prices for the portion of the quantity that falls within a particular range.  Only the one price is used (although this would be an interesting configurable option if someone wanted to write a patch.)
 
-
 Development
 ===========
 
 This extension uses the testing support from spree core. Once you have installed the bundle you will be able to create the test app and run the rake tests. The factories from spree/core are available within the tests.
 
       bundle install
-      rake test_app
-      rake
-
+      bundle exec rake test_app
+      bundle exec rspec spec
