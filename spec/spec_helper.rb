@@ -6,7 +6,6 @@ require 'shoulda-matchers'
 
 #include spree's factories
 require 'spree/core/testing_support/factories'
-require 'spree/core/testing_support/env'
 require 'spree/core/testing_support/controller_requests'
 require 'spree/core/url_helpers'
 # require 'spree/core/testing_support/authorization_helpers'
