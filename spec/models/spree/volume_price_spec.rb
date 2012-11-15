@@ -6,7 +6,7 @@ describe Spree::VolumePrice do
   it { should validate_presence_of(:amount) }
 
   before(:each) do
-    @volume_price = Spree::VolumePrice.new(:variant => Spree::Variant.new, :amount => 10)
+    @volume_price = Spree::VolumePrice.new(:variant => Spree::Variant.new, :amount => 10, :discount_type => 'price')
   end
 
   it "should not interepret a Ruby range as being opend ended" do

@@ -1,3 +1,16 @@
+# Configure simeplecov for test coverage report
+require 'simplecov'
+SimpleCov.start do
+  add_filter '/config/'
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Helpers', 'app/helpers'
+  add_group 'Mailers', 'app/mailers'
+  add_group 'Models', 'app/models'
+  add_group 'Overrides', 'app/overrides'
+  add_group 'Libraries', 'lib'
+  add_group 'Specs', 'spec'
+end
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../dummy/config/environment", __FILE__)
 require 'rspec/rails'
@@ -6,9 +19,10 @@ require 'shoulda-matchers'
 
 #include spree's factories
 require 'spree/core/testing_support/factories'
+# Uncomment when 1.2.1 is released
+# require 'spree/core/testing_support/authorization_helpers'
 require 'spree/core/testing_support/controller_requests'
 require 'spree/core/url_helpers'
-# require 'spree/core/testing_support/authorization_helpers'
 
 # include local factories
 Dir["#{File.dirname(__FILE__)}/factories/**/*.rb"].each do |f|

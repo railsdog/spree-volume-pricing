@@ -15,6 +15,7 @@ describe Spree::Admin::VariantsController do
             "volume_prices_attributes" => {
               "1335830259720" => {
                 "name"=>"5-10",
+                "discount_type" => 'price',
                 "range"=>"5..10",
                 "amount"=>"90",
                 "position"=>"1",

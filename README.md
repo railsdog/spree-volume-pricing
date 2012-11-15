@@ -8,10 +8,11 @@ Volume Pricing is an extension to Spree (a complete open source commerce solutio
 Each VolumePrice contains the following values:
 
 1. **Variant:** Each VolumePrice is associated with a _Variant_, which is used to link products to particular prices.
-2. **Name:** The human readable reprentation of the quantity range (Ex. 10-100).  (Optional)
-3. **Range:** The quantity range for which the price is valid (See Below for Examples of Valid Ranges.)
-4. **Amount:** The price of the product if the line item quantity falls within the specified range.
-5. **Position:** Integer value for `acts_as_list` (Helps keep the volume prices in a defined order.)
+1. **Name:** The human readable reprentation of the quantity range (Ex. 10-100).  (Optional)
+1. **Discount Type** The type of discount to apply.  Price: sets price to the amount specified. Dollar: subtracts specified amount from the Variant price.  Percent: subtracts the specific amounts percentage from the Variant price.
+1. **Range:** The quantity range for which the price is valid (See Below for Examples of Valid Ranges.)
+1. **Amount:** The price of the product if the line item quantity falls within the specified range.
+1. **Position:** Integer value for `acts_as_list` (Helps keep the volume prices in a defined order.)
 
 Install
 =======

@@ -4,7 +4,7 @@ describe Spree::LineItem do
   before :each do
     @order = FactoryGirl.create(:order)
     @variant = FactoryGirl.create(:variant, :price => 10)
-    @variant.volume_prices.create! :amount => 9, :range => '(2+)'
+    @variant.volume_prices.create! :amount => 9, :discount_type => 'price', :range => '(2+)'
     @order.add_variant(@variant, 1)
     @line_item = @order.line_items.first
   end
@@ -15,4 +15,3 @@ describe Spree::LineItem do
     @order.line_items.first.price.to_f.should == 9.00
   end
 end
-
