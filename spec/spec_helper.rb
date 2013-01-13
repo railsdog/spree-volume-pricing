@@ -22,6 +22,7 @@ require 'spree/core/testing_support/factories'
 # Uncomment when 1.2.1 is released
 # require 'spree/core/testing_support/authorization_helpers'
 require 'spree/core/testing_support/controller_requests'
+require 'spree/core/testing_support/authorization_helpers'
 require 'spree/core/url_helpers'
 
 # include local factories
