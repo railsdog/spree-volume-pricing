@@ -5,6 +5,8 @@ Spree::Core::Engine.routes.append do
         get :volume_prices, :on => :member
       end
     end
+
+    delete '/volume_prices/:id', :to => "volume_prices#destroy", :as => :volume_price
   end
 end
 
