@@ -21,7 +21,7 @@
       <% end %>
     </tbody>
   </table>
-  <%= link_to_add_fields t("add_volume_price"), "tbody#volume_prices" %>
+  <%= link_to_add_fields t("add_volume_price"), "tbody#volume_prices", {:class => 'new_volume_price_row'} %>
   <br/><br/>
 
   <%= render 'spree/admin/shared/edit_resource_links' %>
