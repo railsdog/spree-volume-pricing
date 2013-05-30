@@ -3,25 +3,23 @@ Spree::LineItem.class_eval do
 
   # the idea here is compatibility with spree_sale_products
   # trying to create a 'calculation stack' wherein the best valid price is
-  # chosen for the product. This is mainly for compatibility with spree_volume_pricing
-
+  # chosen for the product. This is mainly for compatibility with spree_sale_products
+  # 
+  # Assumption here is that the volume price currency is the same as the product currency
   old_copy_price = instance_method(:copy_price)
   define_method(:copy_price) do
     old_copy_price.bind(self).call
-    new_price = self.price
 
-    if variant and changed? and changes.keys.include? 'quantity'
+    if variant && changed? && changes.keys.include?('quantity')
       vprice = self.variant.volume_price(self.quantity)
 
-      if (!new_price.nil? and vprice <= new_price) or vprice <= self.price
-        return self.price = vprice
+      if self.price.present? && vprice <= self.variant.price
+        self.price = vprice and return
       end
     end
 
-    if new_price.nil?
+    if self.price.nil?
       self.price = self.variant.price
-    else
-      self.price = new_price
     end
   end
 end
