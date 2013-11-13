@@ -2,8 +2,6 @@ Spree::Variant.class_eval do
   has_many :volume_prices, :order => :position, :dependent => :destroy
   accepts_nested_attributes_for :volume_prices, :allow_destroy => true
 
-  attr_accessible :volume_prices_attributes
-
   # calculates the price based on quantity
   def volume_price(quantity)
     if self.volume_prices.count == 0
