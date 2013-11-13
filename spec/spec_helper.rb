@@ -37,6 +37,6 @@ RSpec.configure do |config|
   config.mock_with :rspec
   config.use_transactional_fixtures = false
   config.include FactoryGirl::Syntax::Methods
-  config.include Spree::Core::UrlHelpers
-  config.include Spree::Core::TestingSupport::ControllerRequests
+  config.include Spree::TestingSupport::UrlHelpers
+  config.include Spree::TestingSupport::ControllerRequests
 end
