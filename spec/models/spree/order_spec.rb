@@ -29,7 +29,7 @@ describe Spree::Order do
 
     it "should use the first matching volume price in the event of more then one matching volume prices" do
       @order.contents.add(@variant_with_prices, 5)
-      @order.line_items.first.price.should == 9
+      @order.line_items.first.price.should == 8
     end
   end
 end
