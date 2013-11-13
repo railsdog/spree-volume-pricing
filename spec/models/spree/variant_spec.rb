@@ -7,7 +7,7 @@ describe Spree::Variant do
 
     context 'discount_type = price' do
       before :each do
-        @variant = Factory :variant, :price => 10
+        @variant = FactoryGirl.create :variant, :price => 10
         @variant.volume_prices.create! :amount => 9, :discount_type => 'price', :range => '(10+)'
       end
 
@@ -38,7 +38,7 @@ describe Spree::Variant do
 
     context 'discount_type = dollar' do
       before :each do
-        @variant = Factory :variant, :price => 10
+        @variant = FactoryGirl.create :variant, :price => 10
         @variant.volume_prices.create! :amount => 1, :discount_type => 'dollar', :range => '(10+)'
       end
 
@@ -69,7 +69,7 @@ describe Spree::Variant do
 
     context 'discount_type = percent' do
       before :each do
-        @variant = Factory :variant, :price => 10
+        @variant = FactoryGirl.create :variant, :price => 10
         @variant.volume_prices.create! :amount => 0.1, :discount_type => 'percent', :range => '(10+)'
       end
 
