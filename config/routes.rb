@@ -1,4 +1,4 @@
-Spree::Core::Engine.routes.append do
+routes = lambda do
   namespace :admin do 
     resources :products do 
        resources :variants do
@@ -10,3 +10,8 @@ Spree::Core::Engine.routes.append do
   end
 end
 
+if Spree::Core::Engine.respond_to?(:add_routes)
+  Spree::Core::Engine.add_routes(&routes)
+else
+  Spree::Core::Engine.routes.draw(&routes)
+end
