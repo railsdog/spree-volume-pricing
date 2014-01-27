@@ -1,6 +1,9 @@
 Spree::Variant.class_eval do
   has_many :volume_prices, -> { order("position ASC") }, :dependent => :destroy
-  accepts_nested_attributes_for :volume_prices, :allow_destroy => true
+  accepts_nested_attributes_for :volume_prices, :allow_destroy => true,
+    :reject_if => proc { |volume_price|
+      volume_price[:amount].blank? && volume_price[:range].blank?
+    }
 
   # calculates the price based on quantity
   def volume_price(quantity)
