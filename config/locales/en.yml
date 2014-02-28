@@ -6,3 +6,10 @@ en:
   range: Range
   volume_prices: Volume Prices
   volume_pricing: Volume Pricing
+  amount: Amount
+  name: Name
+  action: Action
+  remove: Remove
+  total_price: Total Price
+  price_discount: Price Discount
+  percent_discount: Percent Discount

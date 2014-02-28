@@ -5,7 +5,7 @@
   </td>
   <td>
     <%= error_message_on(f.object, :discount_type) %>
-    <%= f.select :discount_type, [['Total Price','price'],['Percent Discount','percent'],['Price Discount','dollar']] %>
+    <%= f.select :discount_type, [["#{t(:total_price)}",'price'],["#{t(:percent_discount)}",'percent'],["#{t(:price_discount)}",'dollar']] %>
   </td>
   <td>
     <%= error_message_on(f.object, :range) %>
