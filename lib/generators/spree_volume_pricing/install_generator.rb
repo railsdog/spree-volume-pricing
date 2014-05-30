@@ -3,7 +3,7 @@ module SpreeVolumePricing
     class InstallGenerator < Rails::Generators::Base
 
       def add_javascripts
-        append_file "app/assets/javascripts/admin/all.js", "//= require admin/spree_volume_pricing\n"
+        append_file "vendor/assets/javascripts/spree/backend/all.js", "//= require spree/backend/spree_volume_pricing\n"
       end
 
       def add_migrations
