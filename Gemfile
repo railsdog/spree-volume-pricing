@@ -1,5 +1,6 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'guard-rspec', require: false
-gem 'spree', :github => 'spree/spree', :branch => '2-2-stable'
+gem 'spree', github: 'spree/spree', branch: 'master'
+
 gemspec
