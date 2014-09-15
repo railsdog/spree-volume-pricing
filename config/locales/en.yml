@@ -1,15 +1,16 @@
 ---
 en:
-  add_volume_price: Add Volume Price
-  position: Position
-  discount_type: Discount Type
-  range: Range
-  volume_prices: Volume Prices
-  volume_pricing: Volume Pricing
-  amount: Amount
-  name: Name
-  action: Action
-  remove: Remove
-  total_price: Total Price
-  price_discount: Price Discount
-  percent_discount: Percent Discount
+  spree:
+    add_volume_price: Add Volume Price
+    position: Position
+    discount_type: Discount Type
+    range: Range
+    volume_prices: Volume Prices
+    amount: Amount
+    name: Name
+    action: Action
+    remove: Remove
+    total_price: Total Price
+    price_discount: Price Discount
+    percent_discount: Percent Discount
+    volume_pricing: Volume Pricing

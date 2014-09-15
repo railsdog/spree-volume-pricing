@@ -1,7 +1,8 @@
 ---
 de:
-  add_volume_price: Neuen Staffelpreis
-  position: Position
-  range: Bereich
-  volume_prices: Staffelpreise
-  volume_pricing: Staffelpreis
+  spree:
+    add_volume_price: Neuen Staffelpreis
+    position: Position
+    range: Bereich
+    volume_prices: Staffelpreise
+    volume_pricing: Staffelpreis
