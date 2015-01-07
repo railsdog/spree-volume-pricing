@@ -1,7 +1,7 @@
 Volume Pricing
 ==============
 
-[![Build Status](https://secure.travis-ci.org/spree/spree_volume_pricing.png)](http://travis-ci.org/spree/spree_volume_pricing)
+[![Build Status](https://secure.travis-ci.org/spree-contrib/spree_volume_pricing.png)](http://travis-ci.org/spree-contrib/spree_volume_pricing)
 
 Volume Pricing is an extension to Spree (a complete open source commerce solution for Ruby on Rails) that uses predefined ranges of quantities to determine the price for a particular product variant.  For instance, this allows you to set a price for quantities between 1-10, another price for quantities between (10-100) and another for quantities of 100 or more.  If no volume price is defined for a variant, then the standard price is used.
 
