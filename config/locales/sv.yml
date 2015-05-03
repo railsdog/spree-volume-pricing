@@ -1,0 +1,11 @@
+---
+sv:
+  spree:
+    add_volume_price: Lägg till volympris
+    position: Position
+    discount_type: Rabatt typ
+    range: Omfång
+    volume_prices: Volympriser
+    volume_pricing: Volympris
+    price_discount: Rabatt pris
+    percent_discount: Procent rabatt
