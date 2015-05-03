@@ -2,7 +2,7 @@
 <% if product.price > 0 and product.master.volume_prices.present? %>
   <div id="bulk-discount">
     <h6><%= Spree.t(:bulk_discount) %></h6>
-    <table>
+    <table class="table">
     	<% product.master.volume_prices.each do |v| %>
       	<%= content_tag(:tr) do %>
         	<%= content_tag :td, (v.open_ended? ? v.range : "#{v.range.to_range.begin}–#{v.range.to_range.end}") %>
