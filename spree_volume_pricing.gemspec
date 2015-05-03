@@ -3,15 +3,16 @@ Gem::Specification.new do |s|
   s.name        = 'spree_volume_pricing'
   s.version     = '3.3.0'
   s.summary     = 'Allow prices to be configured in quantity ranges for each variant'
-  s.description = 'Allow prices to be configured in quantity ranges for each variant'
-  s.required_ruby_version = '>= 1.8.7'
+  s.description = s.summary
+  s.required_ruby_version = '>= 1.9.3'
 
-  s.author            = 'Sean Schofield'
-  s.email             = 'sean@railsdog.com'
-  s.homepage          = 'http://spreecommerce.com'
-  s.rubyforge_project = 'spree_volume_pricing'
+  s.author       = 'Sean Schofield'
+  s.email        = 'sean@railsdog.com'
+  s.homepage     = 'https://github.com/spree-contrib/spree_volume_pricing'
+  s.license      = 'BSD-3'
 
-  s.files        = Dir['README.md', 'lib/**/*', 'app/**/*', 'config/*', 'db/*']
+  s.files        = `git ls-files`.split("\n")
+  s.test_files   = `git ls-files -- spec/*`.split("\n")
   s.require_path = 'lib'
   s.requirements << 'none'
 
