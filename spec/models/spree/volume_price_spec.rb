@@ -1,98 +1,110 @@
-require 'spec_helper'
+RSpec.describe Spree::VolumePrice, type: :model do
+  it { is_expected.to belong_to(:variant) }
+  it { is_expected.to validate_presence_of(:variant) }
+  it { is_expected.to validate_presence_of(:amount) }
 
-describe Spree::VolumePrice do
-  it { should belong_to(:variant) }
-  it { should validate_presence_of(:variant) }
-  it { should validate_presence_of(:amount) }
-
-  before(:each) do
-    @volume_price = Spree::VolumePrice.new(:variant => Spree::Variant.new, :amount => 10, :discount_type => 'price')
+  before do
+    @volume_price = Spree::VolumePrice.new(variant: Spree::Variant.new, amount: 10, discount_type: 'price')
   end
 
-  it "should not interepret a Ruby range as being opend ended" do
-    @volume_price.range = "(1..2)"
-    @volume_price.should_not be_open_ended
+  it 'does not interepret a Ruby range as being opend ended' do
+    @volume_price.range = '(1..2)'
+    expect(@volume_price).not_to be_open_ended
   end
-  
-  it "should properly interpret an open ended range" do
-    @volume_price.range = "(50+)"
-    @volume_price.should be_open_ended
+
+  it 'properly interpret an open ended range' do
+    @volume_price.range = '(50+)'
+    expect(@volume_price).to be_open_ended
   end
-  
-  describe "valid range format" do
-    it "should require the presence of a variant" do
+
+  describe 'valid range format' do
+    it 'requires the presence of a variant' do
       @volume_price.variant = nil
-      @volume_price.should_not be_valid
+      expect(@volume_price).not_to be_valid
     end
-    it "should consider a range of (1..2) to be valid" do
-      @volume_price.range = "(1..2)"
-      @volume_price.should be_valid
+
+    it 'consider a range of (1..2) to be valid' do
+      @volume_price.range = '(1..2)'
+      expect(@volume_price).to be_valid
     end
-    it "should consider a range of (1...2) to be valid" do
-      @volume_price.range = "(1...2)"
-      @volume_price.should be_valid
+
+    it 'consider a range of (1...2) to be valid' do
+      @volume_price.range = '(1...2)'
+      expect(@volume_price).to be_valid
     end
-    it "should consider a range of 1..2 to be valid" do
-      @volume_price.range = "1..2"
-      @volume_price.should be_valid
+
+    it 'consider a range of 1..2 to be valid' do
+      @volume_price.range = '1..2'
+      expect(@volume_price).to be_valid
     end
-    it "should consider a range of 1...2 to be valid" do
-      @volume_price.range = "1...2"
-      @volume_price.should be_valid
+
+    it 'consider a range of 1...2 to be valid' do
+      @volume_price.range = '1...2'
+      expect(@volume_price).to be_valid
     end
-    it "should consider a range of (10+) to be valid" do
-      @volume_price.range = "(10+)"
-      @volume_price.should be_valid
+
+    it 'consider a range of (10+) to be valid' do
+      @volume_price.range = '(10+)'
+      expect(@volume_price).to be_valid
     end
-    it "should consider a range of 10+ to be valid" do
-      @volume_price.range = "10+"
-      @volume_price.should be_valid
+
+    it 'consider a range of 10+ to be valid' do
+      @volume_price.range = '10+'
+      expect(@volume_price).to be_valid
     end
-    it "should not consider a range of 1-2 to valid" do
-      @volume_price.range = "1-2"
-      @volume_price.should_not be_valid    
+
+    it 'does not consider a range of 1-2 to valid' do
+      @volume_price.range = '1-2'
+      expect(@volume_price).not_to be_valid
     end
-    it "should not consider a range of 1 to valid" do
-      @volume_price.range = "1"
-      @volume_price.should_not be_valid    
+
+    it 'does not consider a range of 1 to valid' do
+      @volume_price.range = '1'
+      expect(@volume_price).not_to be_valid
     end
-    it "should not consider a range of foo to valid" do
-      @volume_price.range = "foo"
-      @volume_price.should_not be_valid    
+
+    it 'does not consider a range of foo to valid' do
+      @volume_price.range = 'foo'
+      expect(@volume_price).not_to be_valid
     end
   end
-  
-  describe "include?"  do    
-    it "should not match a quantity that fails to fall within the specified range" do
-      @volume_price.range = "(10..20)"
-      @volume_price.should_not include(21)
-    end
-    it "should match a quantity that is within the specified range" do
-      @volume_price.range = "(10..20)"
-      @volume_price.should include(12)
-    end
-    it "should match the upper bound of ranges that include the upper bound" do
-      @volume_price.range = "(10..20)"
-      @volume_price.should include(20)
-    end
-    it "should not match the upper bound for ranges that exclude the upper bound" do
-      @volume_price.range = "(10...20)"
-      @volume_price.should_not include(20)
-    end
-    it "should match a quantity that exceeds the value of an open ended range" do
-      @volume_price.range = "(50+)"
-      @volume_price.should include(51)
-    end
-    it "should match a quantity that equals the value of an open ended range" do
-      @volume_price.range = "(50+)"
-      @volume_price.should include(50)
-      @volume_price.range = "50+"
-      @volume_price.should include(50)
 
+  describe 'include?'  do
+    it 'does not match a quantity that fails to fall within the specified range' do
+      @volume_price.range = '(10..20)'
+      expect(@volume_price).not_to include(21)
     end
-    it "should not match a quantity that is less then the value of an open ended range" do
-      @volume_price.range = "(50+)"
-      @volume_price.should_not include(40)
-    end    
+
+    it 'matches a quantity that is within the specified range' do
+      @volume_price.range = '(10..20)'
+      expect(@volume_price).to include(12)
+    end
+
+    it 'matches the upper bound of ranges that include the upper bound' do
+      @volume_price.range = '(10..20)'
+      expect(@volume_price).to include(20)
+    end
+
+    it 'does not match the upper bound for ranges that exclude the upper bound' do
+      @volume_price.range = '(10...20)'
+      expect(@volume_price).not_to include(20)
+    end
+
+    it 'matches a quantity that exceeds the value of an open ended range' do
+      @volume_price.range = '(50+)'
+      expect(@volume_price).to include(51)
+    end
+
+    it 'matches a quantity that equals the value of an open ended range' do
+      @volume_price.range = '(50+)'
+      expect(@volume_price).to include(50)
+      @volume_price.range = '50+'
+      expect(@volume_price).to include(50)
+    end
+
+    it 'does not match a quantity that is less then the value of an open ended range' do
+      @volume_price.range = '(50+)'
+      expect(@volume_price).not_to include(40)
+    end
   end
 end

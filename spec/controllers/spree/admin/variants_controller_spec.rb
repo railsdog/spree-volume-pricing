@@ -1,17 +1,15 @@
-require 'spec_helper'
-
-describe Spree::Admin::VariantsController do
+RSpec.describe Spree::Admin::VariantsController, type: :controller do
   stub_authorization!
 
-  describe "PUT #update" do
-    it "creates a volume price" do
-      variant = FactoryGirl.create :variant
+  context 'PUT #update' do
+    it 'creates a volume price' do
+      variant = create :variant
 
       expect do
         spree_put :update,
-          :product_id => variant.product.slug,
-          :id => variant.id,
-          :variant => {
+          product_id: variant.product.slug,
+          id: variant.id,
+          variant: {
             "volume_prices_attributes" => {
               "1335830259720" => {
                 "name"=>"5-10",

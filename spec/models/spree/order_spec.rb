@@ -1,35 +1,33 @@
-require 'spec_helper'
+RSpec.describe Spree::Order, type: :model do
+  before do
+    @order = create(:order)
+    @variant = create(:variant, price: 10)
 
-describe Spree::Order do
-  before(:each) do
-    @order = FactoryGirl.create(:order)
-    @variant = FactoryGirl.create(:variant, :price => 10)
-
-    @variant_with_prices = FactoryGirl.create(:variant, :price => 10)
-    @variant_with_prices.volume_prices << FactoryGirl.create(:volume_price, :range => '(1..5)', :amount => 9)
-    @variant_with_prices.volume_prices << FactoryGirl.create(:volume_price, :range => '(5..9)', :amount => 8)
+    @variant_with_prices = create(:variant, price: 10)
+    @variant_with_prices.volume_prices << create(:volume_price, range: '(1..5)', amount: 9)
+    @variant_with_prices.volume_prices << create(:volume_price, range: '(5..9)', amount: 8)
   end
 
-  describe "add_variant" do
-    it "should use the variant price if there are no volume prices" do
+  context 'add_variant' do
+    it 'uses the variant price if there are no volume prices' do
       @order.contents.add(@variant)
-      @order.line_items.first.price.should == 10
+      expect(@order.line_items.first.price).to eq(10)
     end
 
-    it "should use the volume price if quantity falls within a quantity range of a volume price" do
-      @variant.volume_prices << FactoryGirl.create(:volume_price, :range => '(5..10)', :amount => 9)
+    it 'uses the volume price if quantity falls within a quantity range of a volume price' do
+      @variant.volume_prices << create(:volume_price, range: '(5..10)', amount: 9)
       @order.contents.add(@variant_with_prices, 7)
-      @order.line_items.first.price.should == 8
+      expect(@order.line_items.first.price).to eq(8)
     end
 
-    it "should use the variant price if the quantity fails to satisfy any of the volume price ranges" do
+    it 'uses the variant price if the quantity fails to satisfy any of the volume price ranges' do
       @order.contents.add(@variant, 10)
-      @order.line_items.first.price.should == 10
+      expect(@order.line_items.first.price).to eq(10)
     end
 
-    it "should use the first matching volume price in the event of more then one matching volume prices" do
+    it 'uses the first matching volume price in the event of more then one matching volume prices' do
       @order.contents.add(@variant_with_prices, 5)
-      @order.line_items.first.price.should == 8
+      expect(@order.line_items.first.price).to eq(8)
     end
   end
 end
