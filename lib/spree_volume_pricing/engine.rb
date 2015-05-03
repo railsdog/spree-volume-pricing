@@ -17,7 +17,7 @@ module SpreeVolumePricing
             return Range.new(elements[0].from(1).to_i, elements[1].to_i)
           when 3
             elements = self.split('...')
-            return Range.new(elements[0].from(1).to_i, elements[1].to_i-1)
+            return Range.new(elements[0].from(1).to_i, elements[1].to_i - 1)
           else
             raise ArgumentError.new("Couldn't convert to Range: #{self}")
           end
@@ -26,6 +26,6 @@ module SpreeVolumePricing
     end
 
     config.autoload_paths += %W(#{config.root}/lib)
-    config.to_prepare &method(:activate).to_proc
+    config.to_prepare(&method(:activate).to_proc)
   end
 end

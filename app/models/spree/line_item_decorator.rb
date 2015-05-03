@@ -4,7 +4,7 @@ Spree::LineItem.class_eval do
   # the idea here is compatibility with spree_sale_products
   # trying to create a 'calculation stack' wherein the best valid price is
   # chosen for the product. This is mainly for compatibility with spree_sale_products
-  # 
+  #
   # Assumption here is that the volume price currency is the same as the product currency
   old_copy_price = instance_method(:copy_price)
   define_method(:copy_price) do

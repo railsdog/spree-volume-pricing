@@ -1,11 +1,20 @@
 class Spree::VolumePrice < ActiveRecord::Base
-  belongs_to :variant, :touch => true
-  acts_as_list :scope => :variant
+  belongs_to :variant, touch: true
+  acts_as_list scope: :variant
 
-  validates :amount, :presence => true
-  validates :discount_type, :presence => true, :inclusion => {:in => %w(price dollar percent), :message => "%{value} is not a valid Volume Price Type"}
-  validates :range, :format => {:with => /\(?[0-9]+(?:\.{2,3}[0-9]+|\+\)?)/, :message => "must be in one of the following formats: (a..b), (a...b), (a+)"}
-  validates :variant, :presence => true
+  validates :amount, presence: true
+  validates :discount_type,
+            presence: true,
+            inclusion: {
+              in: %w(price dollar percent),
+              message: "%{value} is not a valid Volume Price Type"
+            }
+  validates :range,
+            format: {
+              with: /\(?[0-9]+(?:\.{2,3}[0-9]+|\+\)?)/,
+              message: 'must be in one of the following formats: (a..b), (a...b), (a+)'
+            }
+  validates :variant, presence: true
 
   OPEN_ENDED = /\(?[0-9]+\+\)?/
 

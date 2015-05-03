@@ -1,4 +1,4 @@
-Spree::BaseHelper.class_eval do 
+Spree::BaseHelper.class_eval do
   def display_volume_price(variant, quantity = 1)
     Spree::Money.new(variant.volume_price(quantity), { currency: Spree::Config[:currency] }).to_html
   end

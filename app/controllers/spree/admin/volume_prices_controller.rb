@@ -4,7 +4,7 @@ module Spree
       def destroy
         @volume_price = Spree::VolumePrice.find(params[:id])
         @volume_price.destroy
-        render :nothing => true
+        render nothing: true
       end
     end
   end

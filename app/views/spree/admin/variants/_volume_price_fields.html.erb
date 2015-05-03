@@ -1,23 +1,27 @@
 <tr class="volume_price fields">
   <td>
     <%= error_message_on(f.object, :name) %>
-    <%= f.text_field :name, :size => 10 %>
+    <%= f.text_field :name, size: 10 %>
   </td>
   <td>
     <%= error_message_on(f.object, :discount_type) %>
-    <%= f.select :discount_type, [["#{Spree.t(:total_price)}",'price'],["#{Spree.t(:percent_discount)}",'percent'],["#{Spree.t(:price_discount)}",'dollar']], { inlcude_blank: true }, class: 'select2' %>
+    <%= f.select :discount_type, [
+      ["#{Spree.t(:total_price)}", 'price'],
+      ["#{Spree.t(:percent_discount)}", 'percent'],
+      ["#{Spree.t(:price_discount)}", 'dollar']
+      ], { inlcude_blank: true }, class: 'select2' %>
   </td>
   <td>
     <%= error_message_on(f.object, :range) %>
-    <%= f.text_field :range, :size => 10 %>
+    <%= f.text_field :range, size: 10 %>
   </td>
   <td>
     <%= error_message_on(f.object, :amount) %>
-    <%= f.text_field :amount, :size => 10 %>
+    <%= f.text_field :amount, size: 10 %>
   </td>
   <td>
     <%= error_message_on(f.object, :position) %>
-    <%= f.text_field :position, :size => 3 %>
+    <%= f.text_field :position, size: 3 %>
   </td>
   <td class="actions">
     <%= link_to_remove_fields '', f, class: 'no-text' %>
