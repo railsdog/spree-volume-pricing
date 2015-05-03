@@ -3,6 +3,9 @@ de:
   spree:
     add_volume_price: Neuen Staffelpreis
     position: Position
+    discount_type:
     range: Bereich
     volume_prices: Staffelpreise
     volume_pricing: Staffelpreis
+    price_discount:
+    percent_discount:

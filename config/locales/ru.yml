@@ -3,6 +3,9 @@ ru:
   spree:
     add_volume_price: Добавить цену в зависимости от количества
     position: Позиция в списке
+    discount_type:
     range: Диапазон
     volume_prices: Цены в зависимости от количества
     volume_pricing: Цена в зависимости от количества
+    price_discount:
+    percent_discount:
