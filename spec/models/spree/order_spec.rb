@@ -4,8 +4,8 @@ RSpec.describe Spree::Order, type: :model do
     @variant = create(:variant, price: 10)
 
     @variant_with_prices = create(:variant, price: 10)
-    @variant_with_prices.volume_prices << create(:volume_price, range: '(1..5)', amount: 9)
-    @variant_with_prices.volume_prices << create(:volume_price, range: '(5..9)', amount: 8)
+    @variant_with_prices.volume_prices << create(:volume_price, range: '(1..5)', amount: 9, position: 2)
+    @variant_with_prices.volume_prices << create(:volume_price, range: '(5..9)', amount: 8, position: 1)
   end
 
   context 'add_variant' do
