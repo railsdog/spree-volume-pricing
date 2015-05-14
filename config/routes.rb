@@ -7,5 +7,6 @@ Spree::Core::Engine.add_routes do
     end
 
     delete '/volume_prices/:id', to: 'volume_prices#destroy', as: :volume_price
+    resources :volume_price_models
   end
 end

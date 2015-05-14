@@ -5,4 +5,8 @@ FactoryGirl.define do
     range '(1..5)'
     association :variant
   end
+
+  factory :volume_price_model, class: Spree::VolumePriceModel do
+    name "name"
+  end
 end

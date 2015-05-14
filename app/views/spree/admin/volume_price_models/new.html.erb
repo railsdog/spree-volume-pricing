@@ -1,0 +1,12 @@
+<% content_for :page_title do %>
+  <%= Spree.t(:new_volume_price_model) %>
+<% end %>
+
+<%= form_for [:admin, @volume_price_model] do |f| %>
+  <fieldset>
+    <%= render :partial => 'form', :locals => { :f => f } %>
+    <div class="form-actions" data-hook="buttons">
+      <%= button Spree.t(:create), 'save' %>
+    </div>
+  </fieldset>
+<% end %>

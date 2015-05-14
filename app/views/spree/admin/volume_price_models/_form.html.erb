@@ -1,0 +1,9 @@
+<div data-hook="admin_inside_volume_price_model_form" class="form-group">
+  <%= f.field_container :name, class: ['form-group'] do %>
+    <%= f.label :name, Spree.t(:name) %> <span class="required">*</span>
+    <%= error_message_on :volume_price_model, :name, :class => 'error-message' %>
+    <%= text_field :volume_price_model, :name, :class => 'form-control' %>
+  <% end %>
+
+  <%= render 'spree/admin/volume_prices/edit_fields', f: f %>
+</div>

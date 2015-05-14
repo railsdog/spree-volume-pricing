@@ -1,6 +1,7 @@
 RSpec.describe Spree::VolumePrice, type: :model do
   it { is_expected.to belong_to(:variant) }
-  it { is_expected.to validate_presence_of(:variant) }
+  it { is_expected.to belong_to(:spree_role) }
+  # it { is_expected.to validate_presence_of(:variant) }
   it { is_expected.to validate_presence_of(:amount) }
 
   before do

@@ -4,7 +4,7 @@
 <% content_for :page_actions do %>
   <span id="new_add_volume_price" data-hook>
     <%= button_link_to Spree.t(:add_volume_price), 'javascript:;', {
-      icon: 'add', :'data-target' => 'tbody#volume_prices', class: 'btn-success spree_add_fields' } %>
+      icon: 'add', :'data-target' => 'tbody#volume_prices', class: 'btn-success spree_add_fields', id: 'add_volume_price'} %>
   </span>
 <% end %>
 
@@ -18,12 +18,20 @@
         <th><%= Spree.t(:range) %></th>
         <th><%= Spree.t(:amount) %></th>
         <th><%= Spree.t(:position) %></th>
+        <th><%= Spree.t(:role) %></th>
         <th class="actions"></th>
       </tr>
     </thead>
     <tbody id="volume_prices">
       <%= f.fields_for :volume_prices do |vp_form| %>
-        <%= render 'volume_price_fields', f: vp_form %>
+      <%= render partial: 'spree/admin/volume_prices/volume_price_fields', locals: { f: vp_form } %>
+      <% end %>
+    </tbody>
+    <tbody id="volume_price_models">
+      <%= f.field_container :volume_price_model, class: ['form-group'] do %>
+        <%= f.label :volume_price_model_id, Spree.t(:volume_price_model) %>
+        <%= f.collection_select(:volume_price_model_ids, Spree::VolumePriceModel.all, :id, :name, { include_blank: Spree.t('match_choices.none') }, { class: 'select2', disabled: (cannot? :edit, Spree::VolumePriceModel) }) %>
+      <%= f.error_message_on :volume_price_model %>
       <% end %>
     </tbody>
   </table>

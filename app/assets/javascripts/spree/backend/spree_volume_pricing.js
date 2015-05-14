@@ -3,27 +3,14 @@
 // spree's version only handles 'input', not 'select', and this breaks spree_volume_pricing
 
 $(function () {
-  $('.new_volume_price_row.add_fields').off('click').on('click', function() {
+  $('#add_volume_price').click( function() {
     var target = $(this).data("target"),
-        new_table_row = $(target + ' tr:visible:last').clone(),
-        new_id = new Date().getTime();
-
-    new_table_row.find('input,select').each(function () {
-      var el = $(this);
-      el.val('');
-      el.attr('id', el.attr('id').replace(/\d+/, new_id))
-      el.attr('name', el.attr('name').replace(/\d+/, new_id))
+      new_table_row = $(target + ' tr:visible:first');
+    new_table_row.find('div.select2').remove();
+    $('select.select2').select2({
+      allowClear: true,
+      dropdownAutoWidth: true
     });
-
-    // When cloning a new row, set the href of all icons to be an empty "#"
-    // This is so that clicking on them does not perform the actions for the
-    // duplicated row
-    new_table_row.find('a').each(function () {
-      var el = $(this);
-      el.attr('href', '#');
-    });
-
-    $(target).prepend(new_table_row);
   });
 
 });

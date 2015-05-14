@@ -1,0 +1,3 @@
+<!-- insert_bottom "[data-hook='admin_configurations_sidebar_menu'], #admin_configurations_sidebar_menu[data-hook]" -->
+
+<%= configurations_sidebar_menu_item Spree.t('volume_price_models'), admin_volume_price_models_path if can? :admin, Spree::VolumePriceModel %>

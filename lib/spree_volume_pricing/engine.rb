@@ -4,6 +4,12 @@ module SpreeVolumePricing
     isolate_namespace Spree
     engine_name 'spree_volume_pricing'
 
+    initializer "spree_volume_pricing.preferences", before: "spree.environment" do |app|
+      Spree::AppConfiguration.class_eval do
+        preference :use_master_variant_volume_pricing, :boolean, :default => false
+      end
+    end
+
     def self.activate
       Dir.glob(File.join(File.dirname(__FILE__), '../../app/**/*_decorator*.rb')) do |c|
         Rails.configuration.cache_classes ? require(c) : load(c)

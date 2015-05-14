@@ -1,0 +1,18 @@
+<% content_for :page_title do %>
+  <%= "Volume Price Models" %>
+<% end %>
+
+<% content_for :page_actions do %>
+  <%= button_link_to Spree.t(:new_volume_price_model), new_object_url, class: "btn-success", icon: 'add', id: 'admin_new_volume_price_model_link' %>
+<% end %>
+
+<% if @volume_price_models.any? %>
+  <div id="list-volume-price-models" data-hook>
+    <%= render 'list' %>
+  </div>
+<% else %>
+  <div class="alert alert-info no-objects-found">
+    <%= Spree.t(:no_resource_found, resource: "Volume Price Models") %>,
+    <%= link_to Spree.t(:add_one), new_object_url %>!
+  </div>
+<% end %>
