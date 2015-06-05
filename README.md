@@ -8,7 +8,7 @@ Volume Pricing is an extension to Spree (a complete open source commerce solutio
 Each VolumePrice contains the following values:
 
 1. **Variant:** Each VolumePrice is associated with a _Variant_, which is used to link products to particular prices.
-1. **Name:** The human readable reprentation of the quantity range (Ex. 10-100).  (Optional)
+1. **Name:** The human readable representation of the quantity range (Ex. 10-100).  (Optional)
 1. **Discount Type** The type of discount to apply.  **Price:** sets price to the amount specified. **Dollar:** subtracts specified amount from the Variant price.  **Percent:** subtracts the specified amounts percentage from the Variant price.
 1. **Range:** The quantity range for which the price is valid (See Below for Examples of Valid Ranges.)
 1. **Amount:** The price of the product if the line item quantity falls within the specified range.
@@ -34,7 +34,7 @@ Ranges are expressed as Strings and are similar to the format of a Range object 
 
 Ranges can also be defined as "open ended."  Open ended ranges are defined with an integer followed by a '+' character.  These ranges are inclusive of the integer and any value higher then the integer.
 
-All ranges need to be expressed as Strings and must include parentheses.  "(1..10)" is considered to be a valid range. "1..10" is not considered to be a valid range (missing the parentheses.)
+All ranges need to be expressed as Strings and can include or exclude parentheses.  "(1..10)" and "1..10" are considered to be a valid range.
 
 ---
 
