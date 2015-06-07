@@ -9,19 +9,16 @@ Spree::LineItem.class_eval do
   old_copy_price = instance_method(:copy_price)
   define_method(:copy_price) do
     old_copy_price.bind(self).call
+    return unless variant
 
-    if variant
-      if changed? && changes.keys.include?('quantity')
-        vprice = variant.volume_price(quantity)
-
-        if price.present? && vprice <= variant.price
-          self.price = vprice and return
-        end
-      end
-
-      if price.nil?
-        self.price = variant.price
+    if changed? && changes.keys.include?('quantity')
+      vprice = variant.volume_price(quantity)
+      
+      if price.present? && vprice <= variant.price
+        self.price = vprice and return
       end
     end
+
+    self.price = variant.price if price.nil?
   end
 end
