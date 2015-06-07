@@ -7,14 +7,18 @@ RSpec.describe Spree::VolumePrice, type: :model do
     @volume_price = Spree::VolumePrice.new(variant: Spree::Variant.new, amount: 10, discount_type: 'price')
   end
 
-  it 'does not interepret a Ruby range as being opend ended' do
-    @volume_price.range = '(1..2)'
-    expect(@volume_price).not_to be_open_ended
+  ['1..2', '(1..2)'].each do |range|
+    it "does not interepret a Ruby range of #{range} as being opend ended" do
+      @volume_price.range = range
+      expect(@volume_price).not_to be_open_ended
+    end
   end
 
-  it 'properly interpret an open ended range' do
-    @volume_price.range = '(50+)'
-    expect(@volume_price).to be_open_ended
+  ['50+', '(50+)'].each do |range|
+    it "properly interpret an open ended range of #{range}" do
+      @volume_price.range = range
+      expect(@volume_price).to be_open_ended
+    end
   end
 
   describe 'valid range format' do
@@ -70,41 +74,45 @@ RSpec.describe Spree::VolumePrice, type: :model do
   end
 
   describe 'include?'  do
-    it 'does not match a quantity that fails to fall within the specified range' do
-      @volume_price.range = '(10..20)'
-      expect(@volume_price).not_to include(21)
+    ['10..20', '(10..20)'].each do |range|
+      it "does not match a quantity that fails to fall within the specified range of #{range}" do
+        @volume_price.range = range
+        expect(@volume_price).not_to include(21)
+      end
+
+      it "matches a quantity that is within the specified range of #{range}" do
+        @volume_price.range = range
+        expect(@volume_price).to include(12)
+      end
+
+      it 'matches the upper bound of ranges that include the upper bound' do
+        @volume_price.range = range
+        expect(@volume_price).to include(20)
+      end
     end
 
-    it 'matches a quantity that is within the specified range' do
-      @volume_price.range = '(10..20)'
-      expect(@volume_price).to include(12)
+    ['10...20', '(10...20)'].each do |range|
+      it 'does not match the upper bound for ranges that exclude the upper bound' do
+        @volume_price.range = range
+        expect(@volume_price).not_to include(20)
+      end
     end
 
-    it 'matches the upper bound of ranges that include the upper bound' do
-      @volume_price.range = '(10..20)'
-      expect(@volume_price).to include(20)
-    end
+    ['50+', '(50+)'].each do |range|
+      it "matches a quantity that exceeds the value of an open ended range of #{range}" do
+        @volume_price.range = range
+        expect(@volume_price).to include(51)
+      end
 
-    it 'does not match the upper bound for ranges that exclude the upper bound' do
-      @volume_price.range = '(10...20)'
-      expect(@volume_price).not_to include(20)
-    end
+      it "matches a quantity that equals the value of an open ended range of #{range}" do
+        @volume_price.range = range
+        expect(@volume_price).to include(50)
+      end
 
-    it 'matches a quantity that exceeds the value of an open ended range' do
-      @volume_price.range = '(50+)'
-      expect(@volume_price).to include(51)
-    end
-
-    it 'matches a quantity that equals the value of an open ended range' do
-      @volume_price.range = '(50+)'
-      expect(@volume_price).to include(50)
-      @volume_price.range = '50+'
-      expect(@volume_price).to include(50)
-    end
-
-    it 'does not match a quantity that is less then the value of an open ended range' do
-      @volume_price.range = '(50+)'
-      expect(@volume_price).not_to include(40)
+      it "does not match a quantity that is less then the value of an open ended range of #{range}" do
+        @volume_price.range = range
+        expect(@volume_price).not_to include(40)
+      end
     end
   end
 end
