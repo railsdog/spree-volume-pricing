@@ -16,6 +16,7 @@ RSpec.describe Spree::LineItem, type: :model do
 
   it 'updates the line item price when the quantity changes to match a range and role matches' do
     @order.user.spree_roles << @role
+    Spree::Config.volume_pricing_role = @role.name
     expect(@order.user.has_spree_role? @role.name.to_sym).to be(true)
     @variant.volume_prices.first.update(role_id: @role.id)
     expect(@line_item.price.to_f).to be(10.00)

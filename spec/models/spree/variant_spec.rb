@@ -33,6 +33,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'uses the volume price when it does match a range and role' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         @variant.volume_prices.first.update(role_id: @role.id)
         expect(@variant.volume_price(10, @user).to_f).to be(9.00)
       end
@@ -49,6 +50,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'gives percent of earning if role matches' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         @variant.volume_prices.first.update(role_id: @role.id)
         expect(@variant.volume_price_earning_percent(10, @user)).to be(10)
       end
@@ -75,6 +77,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'gives amount earning if role matches' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         @variant.volume_prices.first.update(role_id: @role.id)
         expect(@variant.volume_price_earning_amount(10, @user)).to eq(1)
       end
@@ -126,6 +129,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'uses the volume price when it does match a range and role' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         @variant.volume_prices.first.update(role_id: @role.id)
         expect(@variant.volume_price(10, @user).to_f).to be(9.00)
       end
@@ -142,6 +146,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'gives percent of earning if role matches' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         @variant.volume_prices.first.update(role_id: @role.id)
         expect(@variant.volume_price_earning_percent(10, @user)).to be(10)
       end
@@ -168,6 +173,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'gives amount earning if role matches' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         @variant.volume_prices.first.update(role_id: @role.id)
         expect(@variant.volume_price_earning_amount(10, @user)).to eq(1)
       end
@@ -219,6 +225,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'uses the volume price when it does match a range and role' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         @variant.volume_prices.first.update(role_id: @role.id)
         expect(@variant.volume_price(10, @user).to_f).to be(9.00)
       end
@@ -232,6 +239,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'gives amount earning if role matches' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         expect(@variant.volume_price_earning_percent(10)).to be(10)
         @variant_five = create :variant, price: 10
         @variant_five.volume_prices.create! amount: 0.5, discount_type: 'percent', range: '(1+)'
@@ -264,6 +272,7 @@ RSpec.describe Spree::Variant, type: :model do
 
       it 'gives amount earning if role matches' do
         @user.spree_roles << @role
+        Spree::Config.volume_pricing_role = @role.name
         expect(@variant.volume_price_earning_amount(10)).to eq(1)
         @variant_five = create :variant, price: 10
         @variant_five.volume_prices.create! amount: 0.5, discount_type: 'percent', range: '(1+)'

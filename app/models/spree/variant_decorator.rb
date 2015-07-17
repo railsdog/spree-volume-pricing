@@ -7,102 +7,98 @@ Spree::Variant.class_eval do
       volume_price[:amount].blank? && volume_price[:range].blank?
     }
 
-  def join_volume_prices
+  def join_volume_prices(user=nil)
     table = Spree::VolumePrice.arel_table
-    Spree::VolumePrice.where(table[:variant_id].eq(self.id).or(table[:volume_price_model_id].in(self.volume_price_models.ids))).order(position: :asc)
+
+    if user
+      Spree::VolumePrice.where(
+        (table[:variant_id].eq(self.id)
+          .or(table[:volume_price_model_id].in(self.volume_price_models.ids)))
+          .and(table[:role_id].eq(user.resolve_role))
+        )
+        .order(position: :asc)
+    else
+      Spree::VolumePrice.where(
+        (table[:variant_id]
+          .eq(self.id)
+          .or(table[:volume_price_model_id].in(self.volume_price_models.ids)))
+          .and(table[:role_id].eq(nil))
+        ).order(position: :asc)
+    end
   end
 
   # calculates the price based on quantity
   def volume_price(quantity, user=nil)
-    if self.join_volume_prices.count == 0
-      if !(self.product.master.join_volume_prices.count == 0) && Spree::Config.use_master_variant_volume_pricing
-        self.product.master.volume_price(quantity, user)
-      else
-        return self.price
-      end
-    else
-      self.join_volume_prices.each do |volume_price|
-        if volume_price.spree_role
-          return self.price unless user
-          return self.price unless user.has_spree_role? volume_price.spree_role.name.to_sym
-        end
-        if volume_price.include?(quantity)
-          case volume_price.discount_type
-          when 'price'
-            return volume_price.amount
-          when 'dollar'
-            return self.price - volume_price.amount
-          when 'percent'
-            return self.price * (1 - volume_price.amount)
-          end
-        end
-      end
-    end
-
-    # No price ranges matched.
-    price
+    compute_volume_price_quantities :volume_price, self.price, quantity, user
   end
 
   # return percent of earning
   def volume_price_earning_percent(quantity, user=nil)
-    if self.join_volume_prices.count == 0
-      if !(self.product.master.join_volume_prices.count == 0) && Spree::Config.use_master_variant_volume_pricing
-        self.product.master.volume_price_earning_percent(quantity, user)
-      else
-        return 0
-      end
-    else
-      self.join_volume_prices.each do |volume_price|
-        if volume_price.spree_role
-          return 0 unless user
-          return 0 unless user.has_spree_role? volume_price.spree_role.name.to_sym
-        end
-        if volume_price.include?(quantity)
-          case volume_price.discount_type
-          when 'price'
-            diff = self.price - volume_price.amount
-            return (diff * 100 / self.price).round
-          when 'dollar'
-            return (volume_price.amount * 100 / self.price).round
-          when 'percent'
-            return (volume_price.amount * 100).round
-          end
-        end
-      end
-    end
-
-    # No price ranges matched.
-    0
+    compute_volume_price_quantities :volume_price_earning_percent, 0, quantity, user
   end
 
   # return amount of earning
   def volume_price_earning_amount(quantity, user=nil)
-    if self.join_volume_prices.count == 0
-      if !(self.product.master.join_volume_prices.count == 0) && Spree::Config.use_master_variant_volume_pricing
-        self.product.master.volume_price_earning_amount(quantity, user)
+    compute_volume_price_quantities :volume_price_earning_amount, 0, quantity, user
+  end
+
+  protected
+
+  def use_master_variant_volume_pricing?
+    Spree::Config.use_master_variant_volume_pricing && !(self.product.master.join_volume_prices.count == 0)
+  end
+
+  def compute_volume_price_quantities type, default_price, quantity, user
+    volume_prices = self.join_volume_prices user
+    if volume_prices.count == 0
+      if use_master_variant_volume_pricing?
+        self.product.master.send(type, quantity, user)
       else
-        return 0
+        return default_price
       end
     else
-      self.join_volume_prices.each do |volume_price|
-        if volume_price.spree_role
-          return 0 unless user
-          return 0 unless user.has_spree_role? volume_price.spree_role.name.to_sym
-        end
+      volume_prices.each do |volume_price|
         if volume_price.include?(quantity)
-          case volume_price.discount_type
-          when 'price'
-            return self.price - volume_price.amount
-          when 'dollar'
-            return volume_price.amount
-          when 'percent'
-            return self.price - (self.price * (1 - volume_price.amount))
-          end
+          return self.send "compute_#{type}".to_sym, volume_price
         end
       end
-    end
 
-    # No price ranges matched.
-    0
+      # No price ranges matched.
+      default_price
+    end
+  end
+
+  def compute_volume_price volume_price
+    case volume_price.discount_type
+    when 'price'
+      return volume_price.amount
+    when 'dollar'
+      return self.price - volume_price.amount
+    when 'percent'
+      return self.price * (1 - volume_price.amount)
+    end
+  end
+
+  def compute_volume_price_earning_percent volume_price
+    case volume_price.discount_type
+    when 'price'
+      diff = self.price - volume_price.amount
+      return (diff * 100 / self.price).round
+    when 'dollar'
+      return (volume_price.amount * 100 / self.price).round
+    when 'percent'
+      return (volume_price.amount * 100).round
+    end
+  end
+
+  def compute_volume_price_earning_amount volume_price
+    case volume_price.discount_type
+    when 'price'
+      return self.price - volume_price.amount
+    when 'dollar'
+      return volume_price.amount
+    when 'percent'
+      return self.price - (self.price * (1 - volume_price.amount))
+    end
   end
 end
