@@ -14,6 +14,5 @@ class CreateSpreeVolumePriceModels < ActiveRecord::Migration
 
     add_index :spree_variants_volume_price_models, :volume_price_model_id, name: 'volume_price_model_id'
     add_index :spree_variants_volume_price_models, :variant_id, name: 'variant_id'
-
   end
 end

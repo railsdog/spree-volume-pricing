@@ -74,7 +74,7 @@ RSpec.describe Spree::VolumePrice, type: :model do
     end
   end
 
-  describe 'include?'  do
+  describe 'include?' do
     ['10..20', '(10..20)'].each do |range|
       it "does not match a quantity that fails to fall within the specified range of #{range}" do
         @volume_price.range = range

@@ -7,6 +7,6 @@ FactoryGirl.define do
   end
 
   factory :volume_price_model, class: Spree::VolumePriceModel do
-    name "name"
+    name 'name'
   end
 end
