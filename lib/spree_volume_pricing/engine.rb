@@ -26,7 +26,12 @@ module SpreeVolumePricing
             elements = split('...')
             return Range.new(elements[0].delete('(').to_i, elements[1].to_i - 1)
           else
-            raise ArgumentError.new("Couldn't convert to Range: #{self}")
+            raise ArgumentError.new(
+              I18n.t(
+                :'activerecord.errors.messages.could_not_conver_to_range',
+                number: self
+              )
+            )
           end
         end
       end

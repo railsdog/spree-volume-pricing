@@ -10,3 +10,9 @@ de:
     price_discount:
     percent_discount:
     bulk_discount:
+  activerecord:
+    errors:
+      messages:
+        could_not_conver_to_range:
+        is_not_a_valid_volume_price_type:
+        must_be_in_format:
