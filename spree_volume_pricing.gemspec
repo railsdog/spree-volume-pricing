@@ -34,6 +34,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'poltergeist', '~> 1.6.0'
   s.add_development_dependency 'database_cleaner', '~> 1.4.0'
   s.add_development_dependency 'coffee-rails', '~> 4.0.0'
-  s.add_development_dependency 'sass-rails', '~> 4.0.0'
+  s.add_development_dependency 'sass-rails', '~> 5.0.0'
   s.add_development_dependency 'rubocop', '>= 0.24.1'
 end
