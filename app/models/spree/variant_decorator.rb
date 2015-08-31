@@ -12,16 +12,16 @@ Spree::Variant.class_eval do
 
     if user
       Spree::VolumePrice.where(
-        (table[:variant_id].eq(self.id)
-          .or(table[:volume_price_model_id].in(self.volume_price_models.ids)))
+        (table[:variant_id].eq(id)
+          .or(table[:volume_price_model_id].in(volume_price_models.ids)))
           .and(table[:role_id].eq(user.resolve_role))
         )
         .order(position: :asc)
     else
       Spree::VolumePrice.where(
         (table[:variant_id]
-          .eq(self.id)
-          .or(table[:volume_price_model_id].in(self.volume_price_models.ids)))
+          .eq(id)
+          .or(table[:volume_price_model_id].in(volume_price_models.ids)))
           .and(table[:role_id].eq(nil))
         ).order(position: :asc)
     end
@@ -29,7 +29,7 @@ Spree::Variant.class_eval do
 
   # calculates the price based on quantity
   def volume_price(quantity, user = nil)
-    compute_volume_price_quantities :volume_price, self.price, quantity, user
+    compute_volume_price_quantities :volume_price, price, quantity, user
   end
 
   # return percent of earning
@@ -45,21 +45,21 @@ Spree::Variant.class_eval do
   protected
 
   def use_master_variant_volume_pricing?
-    Spree::Config.use_master_variant_volume_pricing && !(self.product.master.join_volume_prices.count == 0)
+    Spree::Config.use_master_variant_volume_pricing && !(product.master.join_volume_prices.count == 0)
   end
 
   def compute_volume_price_quantities(type, default_price, quantity, user)
-    volume_prices = self.join_volume_prices user
+    volume_prices = join_volume_prices user
     if volume_prices.count == 0
       if use_master_variant_volume_pricing?
-        self.product.master.send(type, quantity, user)
+        product.master.send(type, quantity, user)
       else
         return default_price
       end
     else
       volume_prices.each do |volume_price|
         if volume_price.include?(quantity)
-          return self.send "compute_#{type}".to_sym, volume_price
+          return send "compute_#{type}".to_sym, volume_price
         end
       end
 
@@ -73,19 +73,19 @@ Spree::Variant.class_eval do
     when 'price'
       return volume_price.amount
     when 'dollar'
-      return self.price - volume_price.amount
+      return price - volume_price.amount
     when 'percent'
-      return self.price * (1 - volume_price.amount)
+      return price * (1 - volume_price.amount)
     end
   end
 
   def compute_volume_price_earning_percent(volume_price)
     case volume_price.discount_type
     when 'price'
-      diff = self.price - volume_price.amount
-      return (diff * 100 / self.price).round
+      diff = price - volume_price.amount
+      return (diff * 100 / price).round
     when 'dollar'
-      return (volume_price.amount * 100 / self.price).round
+      return (volume_price.amount * 100 / price).round
     when 'percent'
       return (volume_price.amount * 100).round
     end
@@ -94,11 +94,11 @@ Spree::Variant.class_eval do
   def compute_volume_price_earning_amount(volume_price)
     case volume_price.discount_type
     when 'price'
-      return self.price - volume_price.amount
+      return price - volume_price.amount
     when 'dollar'
       return volume_price.amount
     when 'percent'
-      return self.price - (self.price * (1 - volume_price.amount))
+      return price - (price * (1 - volume_price.amount))
     end
   end
 end
