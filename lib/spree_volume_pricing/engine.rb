@@ -21,10 +21,10 @@ module SpreeVolumePricing
           case count('.')
           when 2
             elements = split('..')
-            return Range.new(elements[0].gsub('(', '').to_i, elements[1].to_i)
+            return Range.new(elements[0].delete('(').to_i, elements[1].to_i)
           when 3
             elements = split('...')
-            return Range.new(elements[0].gsub('(', '').to_i, elements[1].to_i - 1)
+            return Range.new(elements[0].delete('(').to_i, elements[1].to_i - 1)
           else
             raise ArgumentError.new("Couldn't convert to Range: #{self}")
           end
