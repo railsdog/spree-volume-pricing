@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = SpreeVolumePricing.version
   s.summary     = 'Allow prices to be configured in quantity ranges for each variant'
   s.description = s.summary
-  s.required_ruby_version = '>= 2.1.0'
+  s.required_ruby_version = '>= 2.2.3'
 
   s.author       = 'Sean Schofield'
   s.email        = 'sean@railsdog.com'
@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  s.add_runtime_dependency 'spree_core', '~> 3.1.0.beta'
+  s.add_runtime_dependency 'spree_core', '~> 3.2.0.alpha'
 
   s.add_development_dependency 'sqlite3', '>= 1.3.10'
   s.add_development_dependency 'capybara', '~> 2.4.4'
