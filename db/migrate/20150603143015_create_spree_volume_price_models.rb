@@ -1,4 +1,4 @@
-class CreateSpreeVolumePriceModels < ActiveRecord::Migration
+class CreateSpreeVolumePriceModels < SpreeExtension::Migration[4.2]
   def change
     create_table :spree_volume_price_models do |t|
       t.string :name
