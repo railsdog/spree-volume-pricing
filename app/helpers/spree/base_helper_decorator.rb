@@ -1,4 +1,4 @@
-Spree::BaseHelper.class_eval do
+module Spree::BaseHelperDecorator
   def display_volume_price(variant, quantity = 1, user = nil)
     Spree::Money.new(
       variant.volume_price(quantity, user),
@@ -17,3 +17,5 @@ Spree::BaseHelper.class_eval do
     ).to_html
   end
 end
+
+Spree::BaseHelper.prepend Spree::BaseHelperDecorator

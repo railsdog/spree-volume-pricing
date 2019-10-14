@@ -1,5 +1,4 @@
-Spree::Admin::VariantsController.class_eval do
-
+module Spree::Admin::VariantsControllerDecorator
   def edit
     @variant.volume_prices.build if @variant.volume_prices.empty?
     super
@@ -30,3 +29,5 @@ Spree::Admin::VariantsController.class_eval do
     super
   end
 end
+
+Spree::Admin::VariantsController.prepend Spree::Admin::VariantsControllerDecorator
