@@ -15,7 +15,6 @@ RSpec.describe Spree::LineItem, type: :model do
   end
 
   it 'updates the line item price when the quantity changes to match a range and role matches' do
-    # This spec fails. Don't know how to solve this
     @order.user.spree_roles << @role
     Spree::Config.volume_pricing_role = @role.name
     expect(@order.user.has_spree_role? @role.name.to_sym).to eq(true)
