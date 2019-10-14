@@ -23,12 +23,13 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'spree_core', '>= 3.1.0', '< 5.0'
   s.add_runtime_dependency 'spree_extension'
+  s.add_runtime_dependency 'deface', '~> 1.0'
 
-  s.add_development_dependency 'sqlite3', '~> 1.3.6'
+  s.add_development_dependency 'sqlite3'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'shoulda-matchers'
-  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'rspec-rails', '~> 4.0.0.beta2'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'factory_bot', '~> 4.7'
   s.add_development_dependency 'pry-rails'
@@ -39,6 +40,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rubocop'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'mysql2'
-  s.add_development_dependency 'pg', '~> 0.18'
+  s.add_development_dependency 'pg'
   s.add_development_dependency 'appraisal'
 end
