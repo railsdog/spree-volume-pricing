@@ -6,10 +6,10 @@ module Spree::LineItemDecorator
   # chosen for the product. This is mainly for compatibility with spree_sale_products
   #
   # Assumption here is that the volume price currency is the same as the product currency
-  def self.prepended(base)
+  def self.prepend(base)
     old_copy_price = base.instance_method(:copy_price)
 
-    base.define_method(:copy_price) do
+    def copy_price
       old_copy_price.bind(self).call
       return unless variant
   
