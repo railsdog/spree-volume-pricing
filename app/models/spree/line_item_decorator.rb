@@ -26,7 +26,7 @@ module Spree::LineItemDecorator
       end
     else
       def copy_price
-        old_copy_price = base.instance_method(:copy_price)
+        old_copy_price = instance_method(:copy_price)
         old_copy_price.bind(self).call
         return unless variant
 
