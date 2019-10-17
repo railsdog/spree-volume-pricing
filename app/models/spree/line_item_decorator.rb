@@ -25,8 +25,11 @@ module Spree::LineItemDecorator
         self.price = variant.price if price.nil?
       end
     else
+      def self.included(base)
+        old_copy_price = base.extend :copy_price
+      end
+
       def copy_price
-        old_copy_price = instance_method(:copy_price)
         old_copy_price.bind(self).call
         return unless variant
 
