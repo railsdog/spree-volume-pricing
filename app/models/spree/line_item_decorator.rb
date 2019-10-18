@@ -26,7 +26,9 @@ module Spree::LineItemDecorator
       end
     else
       def self.included(base)
-        old_copy_price = base.extend :copy_price
+        def old_copy_price
+          base.extend :copy_price
+        end
       end
 
       def copy_price
