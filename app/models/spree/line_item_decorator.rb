@@ -29,20 +29,20 @@ module Spree::LineItemDecorator
         def old_copy_price
           base.extend :copy_price
         end
-      end
 
-      def copy_price
-        old_copy_price.bind(self).call
-        return unless variant
+        def copy_price
+          old_copy_price.bind(self).call
+          return unless variant
 
-        if changed? && changes.keys.include?('quantity')
-          vprice = variant.volume_price(quantity, order.user)
-          if price.present? && vprice <= variant.price
-          self.price = vprice and return
+          if changed? && changes.keys.include?('quantity')
+            vprice = variant.volume_price(quantity, order.user)
+            if price.present? && vprice <= variant.price
+              self.price = vprice and return
+            end
           end
-        end
 
-        self.price = variant.price if price.nil?
+          self.price = variant.price if price.nil?
+        end
       end
     end
   end
