@@ -1,5 +1,5 @@
 RSpec.describe Spree::BaseHelper, type: :helper do
-  include Spree::BaseHelper
+  include SpreeVolumePricing::BaseHelper
 
   context 'volume pricing' do
     before do
