@@ -1,5 +1,4 @@
-Spree.user_class.class_eval do
-
+module Spree::UserDecorator
   def resolve_role
     if self.has_spree_role? Spree::Config.volume_pricing_role.to_sym
       return Spree::Role.find_by name: Spree::Config.volume_pricing_role
@@ -8,3 +7,5 @@ Spree.user_class.class_eval do
     end
   end
 end
+
+Spree.user_class.prepend Spree::UserDecorator

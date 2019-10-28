@@ -1,11 +1,13 @@
-Spree::Variant.class_eval do
-  has_and_belongs_to_many :volume_price_models
-  has_many :volume_prices, -> { order(position: :asc) }, dependent: :destroy
-  has_many :model_volume_prices, -> { order(position: :asc) }, class_name: 'Spree::VolumePrice', through: :volume_price_models, source: :volume_prices
-  accepts_nested_attributes_for :volume_prices, allow_destroy: true,
-    reject_if: proc { |volume_price|
-      volume_price[:amount].blank? && volume_price[:range].blank?
-    }
+module Spree::VariantDecorator
+  def self.prepended(base)
+    base.has_and_belongs_to_many :volume_price_models
+    base.has_many :volume_prices, -> { order(position: :asc) }, dependent: :destroy
+    base.has_many :model_volume_prices, -> { order(position: :asc) }, class_name: 'Spree::VolumePrice', through: :volume_price_models, source: :volume_prices
+    base.accepts_nested_attributes_for :volume_prices, allow_destroy: true,
+      reject_if: proc { |volume_price|
+        volume_price[:amount].blank? && volume_price[:range].blank?
+      }
+  end
 
   def join_volume_prices(user = nil)
     table = Spree::VolumePrice.arel_table
@@ -102,3 +104,5 @@ Spree::Variant.class_eval do
     end
   end
 end
+
+Spree::Variant.prepend Spree::VariantDecorator

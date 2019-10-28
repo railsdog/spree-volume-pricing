@@ -1,4 +1,4 @@
-Spree::LineItem.class_eval do
+module Spree::LineItemDecorator
   # pattern grabbed from: http://stackoverflow.com/questions/4470108/
 
   # the idea here is compatibility with spree_sale_products
@@ -6,18 +6,24 @@ Spree::LineItem.class_eval do
   # chosen for the product. This is mainly for compatibility with spree_sale_products
   #
   # Assumption here is that the volume price currency is the same as the product currency
-  old_copy_price = instance_method(:copy_price)
-  define_method(:copy_price) do
-    old_copy_price.bind(self).call
-    return unless variant
+  
+  def self.prepended(base)
+    old_copy_price = base.instance_method(:copy_price)
 
-    if changed? && changes.keys.include?('quantity')
-      vprice = variant.volume_price(quantity, order.user)
-      if price.present? && vprice <= variant.price
+    define_method(:copy_price) do
+      old_copy_price.bind(self).call
+      return unless variant
+
+      if changed? && changes.keys.include?('quantity')
+        vprice = variant.volume_price(quantity, order.user)
+        if price.present? && vprice <= variant.price
         self.price = vprice and return
+        end
       end
-    end
 
-    self.price = variant.price if price.nil?
+      self.price = variant.price if price.nil?
+    end
   end
 end
+
+Spree::LineItem.prepend Spree::LineItemDecorator

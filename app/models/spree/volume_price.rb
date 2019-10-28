@@ -1,13 +1,7 @@
 class Spree::VolumePrice < ActiveRecord::Base
-  if Gem.loaded_specs['spree_core'].version >= Gem::Version.create('3.3.0')
-    belongs_to :variant, touch: true, optional: true
-    belongs_to :volume_price_model, touch: true, optional: true
-    belongs_to :spree_role, class_name: 'Spree::Role', foreign_key: 'role_id', optional: true
-  else
-    belongs_to :variant, touch: true
-    belongs_to :volume_price_model, touch: true
-    belongs_to :spree_role, class_name: 'Spree::Role', foreign_key: 'role_id'
-  end
+  belongs_to :variant, touch: true, optional: true
+  belongs_to :volume_price_model, touch: true, optional: true
+  belongs_to :spree_role, class_name: 'Spree::Role', foreign_key: 'role_id', optional: true
 
   acts_as_list scope: [:variant_id, :volume_price_model_id]
 

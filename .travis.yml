@@ -8,6 +8,7 @@ script:
 
 addons:
   chrome: stable
+  postgresql: 9.4
 
 env:
   - DB=mysql
@@ -16,19 +17,30 @@ env:
 language: ruby
 
 rvm:
-  - 2.3.7
+  - 2.3.8
   - 2.4.4
   - 2.5.1
 
 gemfile:
-  - gemfiles/spree_3_2.gemfile
   - gemfiles/spree_3_5.gemfile
   - gemfiles/spree_3_7.gemfile
+  - gemfiles/spree_4_0.gemfile
   - gemfiles/spree_master.gemfile
 
 matrix:
-    allow_failures:
-          - gemfile: gemfiles/spree_master.gemfile
+  allow_failures:
+    - gemfile: gemfiles/spree_master.gemfile
+  exclude:
+    - rvm: 2.3.8
+      gemfile: gemfiles/spree_4_0.gemfile
+    - rvm: 2.4.4
+      gemfile: gemfiles/spree_4_0.gemfile
+    - rvm: 2.3.8
+      gemfile: gemfiles/spree_master.gemfile
+    - rvm: 2.4.4
+      gemfile: gemfiles/spree_master.gemfile
+    - rvm: 2.5.1
+      gemfile: gemfiles/spree_3_5.gemfile
 
 before_install:
   - mysql -u root -e "GRANT ALL ON *.* TO 'travis'@'%';"
@@ -38,4 +50,3 @@ before_install:
   - sudo mv -f ~/chromedriver /usr/local/share/
   - sudo chmod +x /usr/local/share/chromedriver
   - sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
-
