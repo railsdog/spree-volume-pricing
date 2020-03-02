@@ -18,10 +18,10 @@ Each VolumePrice contains the following values:
 
 ## Install
 
-Install in `Gemfile` using:
+Add in your `Gemfile`:
 
-```
-gem 'spree_volume_pricing', github: 'spree-contrib/spree_volume_pricing', branch: '3-0-stable'
+```ruby
+gem 'spree_volume_pricing', github: 'spree-contrib/spree_volume_pricing'
 ```
 (run `bundle install`)
 
