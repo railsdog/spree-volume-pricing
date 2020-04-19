@@ -20,10 +20,3 @@ Deface::Override.new(
                   <%= configurations_sidebar_menu_item Spree.t('volume_price_models'), admin_volume_price_models_path if can? :admin, Spree::VolumePriceModel %>
                  HTML
 )
-
-Deface::Override.new(
-  virtual_path: 'spree/products/show',
-  name: 'add_volume_pricing_tabel_to_product_description',
-  insert_after: '[data-hook="product_description"]',
-  partial: 'spree/products/volume_pricing'
-)
