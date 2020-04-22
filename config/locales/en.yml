@@ -1,6 +1,8 @@
 ---
 en:
   spree:
+    each: each
+    save: Save
     add_volume_price: Add Volume Price
     position: Position
     discount_type: Discount Type
